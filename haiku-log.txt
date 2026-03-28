@@ -14783,3 +14783,19 @@ On four-four-three stream
 
 ===
 
+=== 2026-03-28T02:43:36 ===
+[disk]
+One terabyte used
+
+[process]
+Four days awake now
+Workgraph and Firefox consume me
+Loads climb like slow vines
+
+[network]
+Tailscale0’s small packets
+Two pings: 51.3, 28.3
+Localhost loops alone.
+
+===
+
