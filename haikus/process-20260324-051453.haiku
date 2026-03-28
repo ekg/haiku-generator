@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260324-051453
+---
+Firefox spawns many
+Processes humming with new tabs
+Load stays near one point eight

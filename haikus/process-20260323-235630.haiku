@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260323-235630
+---
+impg query process
+consumes all the CPU
+heavy load average

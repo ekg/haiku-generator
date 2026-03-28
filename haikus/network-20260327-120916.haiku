@@ -1,0 +1,55 @@
+---
+observer: network
+timestamp: 20260327-120916
+---
+forty-five point eight
+local address one twenty-seven
+packet loss zero percent
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 192.168.12.156/24 brd 192.168.12.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=110 time=45.8 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.839/45.839/45.839/0.000 ms
+
+=== Ping google.com ===
+PING google.com (2607:f8b0:4002:c09::65) 56 data bytes
+64 bytes from yb-in-f101.1e100.net (2607:f8b0:4002:c09::65): icmp_seq=1 ttl=106 time=28.8 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.805/28.805/28.805/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                             Local Address:Port                              Peer Address:PortProcess                                
+udp   ESTAB      0      0                        192.168.12.156%wlp192s0:68                                192.168.12.1:67                                         
+tcp   FIN-WAIT-1 0      288                               192.168.12.156:59094                           199.38.182.118:443                                        
+tcp   FIN-WAIT-1 0      318                               192.168.12.156:40842                           149.154.175.55:80                                         
+tcp   FIN-WAIT-1 0      298                               192.168.12.156:44198                           149.154.167.50:443                                        
+tcp   FIN-WAIT-1 0      298                               192.168.12.156:44212                           149.154.167.50:443                                        
+tcp   FIN-WAIT-1 0      110                               192.168.12.156:43120                            91.108.56.163:443                                        
+tcp   ESTAB      0      0                                 192.168.12.156:48614                            34.107.243.93:443  users:(("firefox",pid=3059936,fd=182))
+tcp   ESTAB      0      0                                 192.168.12.156:48628                            34.107.243.93:443  users:(("firefox",pid=3059936,fd=373))
+tcp   FIN-WAIT-1 0      288                               192.168.12.156:41758                           172.237.61.190:443                                        
+
+=== Default Route ===
+default via 192.168.12.1 dev wlp192s0 proto dhcp src 192.168.12.156 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1222233300 1335056    0    0    0     0          0         0 1222233300 1335056    0    0    0     0       0          0
+wlp192s0: 73714156006 60622501    0 178256    0     0          0         0 10614361227 26740477    0   79    0     0       0          0
+tailscale0: 36741989  324107    0    0    0     0          0         0 77099636  437798    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 64.233.185.100
+google.com has address 64.233.185.138
+google.com has address 64.233.185.102
+-->

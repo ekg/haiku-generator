@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260325-215144
+---
+rustc devours all
+workgraph test waits its turn
+high load slowly climbs

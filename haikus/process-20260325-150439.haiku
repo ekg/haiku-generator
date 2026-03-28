@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260325-150439
+---
+rustc devours cores
+the load average climbs high
+swap sleeps peacefully

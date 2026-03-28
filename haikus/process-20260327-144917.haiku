@@ -1,0 +1,8 @@
+---
+observer: process
+timestamp: 20260327-144917
+---
+impg query --sequence-files HPRC_r2_assemblies_0.6.1.agc -a tpas/GCA_000001405.15_GRCh38_no_alt_analysis_set.PanSN.merged.edit-distance.128.tpa --target-range GRCh38#0#chr6:31972057-32055418 --gfa-engine seqwish -o gfa
+
+TOP PROCESSES BY MEMORY:
+USER         PID %CPU

@@ -1,0 +1,56 @@
+---
+observer: network
+timestamp: 20260326-205514
+---
+Loopback, then wlp,
+Twenty-two ms to Google,
+Firefox connects.
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 172.21.194.38/21 brd 172.21.199.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=112 time=23.0 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 23.003/23.003/23.003/0.000 ms
+
+=== Ping google.com ===
+PING google.com (74.125.21.100) 56(84) bytes of data.
+64 bytes from yv-in-f100.1e100.net (74.125.21.100): icmp_seq=1 ttl=102 time=22.1 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 22.105/22.105/22.105/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                             Local Address:Port                             Peer Address:PortProcess                                
+udp   ESTAB      0      0                         172.21.194.38%wlp192s0:68                               172.23.23.24:67                                         
+tcp   ESTAB      0      0                                  172.21.194.38:47062                            146.75.77.91:443  users:(("firefox",pid=3059936,fd=232))
+tcp   ESTAB      0      0                                  172.21.194.38:47084                            146.75.77.91:443  users:(("firefox",pid=3059936,fd=260))
+tcp   ESTAB      0      0                                  172.21.194.38:35624                          199.38.182.118:443                                        
+tcp   ESTAB      0      0                                  172.21.194.38:45092                           52.123.129.14:443  users:(("firefox",pid=3059936,fd=256))
+tcp   ESTAB      0      0                                  172.21.194.38:55590                             3.171.22.99:443  users:(("firefox",pid=3059936,fd=314))
+tcp   ESTAB      0      0                                  172.21.194.38:42876                            35.190.46.17:443  users:(("claude",pid=689960,fd=28))   
+tcp   ESTAB      0      0                                  172.21.194.38:46698                            35.190.46.17:443  users:(("claude",pid=690475,fd=28))   
+tcp   ESTAB      0      0                                  172.21.194.38:47564                            35.190.46.17:443  users:(("claude",pid=689646,fd=28))   
+ss unavailable
+
+=== Default Route ===
+default via 172.21.192.1 dev wlp192s0 proto dhcp src 172.21.194.38 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1180754302  932245    0    0    0     0          0         0 1180754302  932245    0    0    0     0       0          0
+wlp192s0: 68269806407 56143215    0 154026    0     0          0         0 10108738957 23734904    0   62    0     0       0          0
+tailscale0: 28059770  249310    0    0    0     0          0         0 58309501  338350    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 74.125.21.100
+google.com has address 74.125.21.139
+google.com has address 74.125.21.102
+-->

@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260325-213621
+---
+rustc hunts for crates
+two hundred percent cpu load
+workgraph builds again

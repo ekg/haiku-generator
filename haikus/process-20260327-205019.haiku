@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260327-205019
+---
+Cargo test hammers cores
+Load climbs above ten, workgraph hums
+Memory still breathes

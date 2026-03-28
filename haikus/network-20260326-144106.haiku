@@ -1,0 +1,55 @@
+---
+observer: network
+timestamp: 20260326-144106
+---
+Ping to distant Google
+Latency forty-six
+Zoom and Firefox connect
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 192.168.12.156/24 brd 192.168.12.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=110 time=46.1 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 46.075/46.075/46.075/0.000 ms
+
+=== Ping google.com ===
+PING google.com (2607:f8b0:4002:c09::66) 56 data bytes
+64 bytes from yb-in-x66.1e100.net (2607:f8b0:4002:c09::66): icmp_seq=1 ttl=108 time=46.8 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 46.841/46.841/46.841/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                             Local Address:Port                               Peer Address:PortProcess                                
+udp   ESTAB      0      0                                 192.168.12.156:54546                            206.247.22.189:8801 users:(("zoom",pid=2533932,fd=82))    
+udp   ESTAB      0      0                                 192.168.12.156:60101                            206.247.22.189:8801 users:(("zoom",pid=2533932,fd=85))    
+udp   ESTAB      0      0                        192.168.12.156%wlp192s0:68                                 192.168.12.1:67                                         
+udp   ESTAB      0      0                                 192.168.12.156:35152                            206.247.22.189:8801 users:(("zoom",pid=2533932,fd=107))   
+udp   ESTAB      0      0                                 192.168.12.156:37063                            206.247.22.189:8801 users:(("zoom",pid=2533932,fd=84))    
+udp   ESTAB      0      0                                 192.168.12.156:43410                            206.247.22.189:8801 users:(("zoom",pid=2533932,fd=86))    
+tcp   ESTAB      0      0                                 192.168.12.156:50192                             34.107.243.93:443  users:(("firefox",pid=3059936,fd=136))
+tcp   ESTAB      0      0                                 192.168.12.156:50198                             34.107.243.93:443  users:(("firefox",pid=3059936,fd=177))
+tcp   ESTAB      0      0                                 192.168.12.156:48724                              162.125.21.2:443  users:(("dropbox",pid=3362,fd=45))    
+
+=== Default Route ===
+default via 192.168.12.1 dev wlp192s0 proto dhcp src 192.168.12.156 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1176868639  895437    0    0    0     0          0         0 1176868639  895437    0    0    0     0       0          0
+wlp192s0: 61552002081 50866959    0 147549    0     0          0         0 9340040071 21677476    0   52    0     0       0          0
+tailscale0: 22470247  209582    0    0    0     0          0         0 50518441  294955    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 64.233.185.138
+google.com has address 64.233.185.101
+google.com has address 64.233.185.102
+-->

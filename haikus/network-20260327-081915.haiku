@@ -1,0 +1,56 @@
+---
+observer: network
+timestamp: 20260327-081915
+---
+Tailscale's hidden path
+One hundred thirty nine millis
+Three IPs awake
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 192.168.12.156/24 brd 192.168.12.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=110 time=139 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 138.720/138.720/138.720/0.000 ms
+
+=== Ping google.com ===
+PING google.com (2607:f8b0:4002:c11::8b) 56 data bytes
+64 bytes from yq-in-f139.1e100.net (2607:f8b0:4002:c11::8b): icmp_seq=1 ttl=108 time=35.7 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 35.709/35.709/35.709/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                                      Local Address:Port                             Peer Address:PortProcess                                
+udp   ESTAB      0      0                                          192.168.12.156:52471                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:53066                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:53278                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:53413                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                               127.0.0.1:54116                              127.0.0.53:53   users:(("firefox",pid=3059936,fd=154))
+udp   ESTAB      0      0                                          192.168.12.156:54194                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:54356                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:55764                            192.168.12.1:53                                         
+udp   ESTAB      0      0                                          192.168.12.156:55820                            192.168.12.1:53                                         
+ss unavailable
+
+=== Default Route ===
+default via 192.168.12.1 dev wlp192s0 proto dhcp src 192.168.12.156 metric 20600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1209825858 1211685    0    0    0     0          0         0 1209825858 1211685    0    0    0     0       0          0
+wlp192s0: 71833610234 59134928    0 169920    0     0          0         0 10514054477 25789756    0   79    0     0       0          0
+tailscale0: 34763751  305965    0    0    0     0          0         0 75356494  419215    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 64.233.185.139
+google.com has address 64.233.185.102
+google.com has address 64.233.185.113
+-->

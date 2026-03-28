@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260325-114827
+---
+rustc consumes one core
+heavy load climbs like afternoon sun
+swap sleeps undisturbed

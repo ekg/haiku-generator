@@ -1,0 +1,56 @@
+---
+observer: network
+timestamp: 20260325-135736
+---
+Connection to Google
+Ping replies at thirty-nine
+IPv4 and six
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 192.168.12.156/24 brd 192.168.12.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=110 time=79.2 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 79.212/79.212/79.212/0.000 ms
+
+=== Ping google.com ===
+PING google.com (2607:f8b0:4002:c2c::8b) 56 data bytes
+64 bytes from yl-in-f139.1e100.net (2607:f8b0:4002:c2c::8b): icmp_seq=1 ttl=109 time=39.1 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 39.088/39.088/39.088/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                            Local Address:Port                         Peer Address:PortProcess                                
+udp   ESTAB      0      0                       192.168.12.156%wlp192s0:68                           192.168.12.1:67                                         
+tcp   ESTAB      0      0                                192.168.12.156:35834                       34.107.243.93:443  users:(("firefox",pid=1512358,fd=65)) 
+tcp   ESTAB      0      0                                192.168.12.156:45830                        162.125.21.2:443  users:(("dropbox",pid=3362,fd=49))    
+tcp   SYN-SENT   0      1                                192.168.12.156:32768                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=6))  
+tcp   SYN-SENT   0      1                                192.168.12.156:32774                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=13)) 
+tcp   SYN-SENT   0      1                                192.168.12.156:32784                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=4))  
+tcp   SYN-SENT   0      1                                192.168.12.156:32786                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=19)) 
+tcp   SYN-SENT   0      1                                192.168.12.156:32796                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=7))  
+tcp   SYN-SENT   0      1                                192.168.12.156:32798                         129.82.21.6:443  users:(("satpaper",pid=607111,fd=14)) 
+ss unavailable
+
+=== Default Route ===
+default via 192.168.12.1 dev wlp192s0 proto dhcp src 192.168.12.156 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1152582304  644685    0    0    0     0          0         0 1152582304  644685    0    0    0     0       0          0
+wlp192s0: 40565369470 32856331    0 91004    0     0          0         0 5051030900 13347997    0   52    0     0       0          0
+tailscale0: 11081066  106152    0    0    0     0          0         0 28804242  163258    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 142.251.15.101
+google.com has address 142.251.15.102
+google.com has address 142.251.15.100
+-->

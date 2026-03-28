@@ -1,0 +1,56 @@
+---
+observer: network
+timestamp: 20260324-205134
+---
+Claude talks through TLS
+On port four forty three
+Through the wireless net.
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 172.21.198.239/21 brd 172.21.199.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=112 time=23.6 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 23.591/23.591/23.591/0.000 ms
+
+=== Ping google.com ===
+PING google.com (64.233.185.138) 56(84) bytes of data.
+64 bytes from yb-in-f138.1e100.net (64.233.185.138): icmp_seq=1 ttl=102 time=25.6 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 25.609/25.609/25.609/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q           Local Address:Port     Peer Address:PortProcess                                
+udp   ESTAB      0      0      172.21.198.239%wlp192s0:68       172.23.23.24:67                                         
+tcp   ESTAB      0      0               172.21.198.239:49206   64.233.180.95:443  users:(("firefox",pid=1512358,fd=163))
+tcp   FIN-WAIT-1 0      1               172.21.198.239:41958   18.164.116.34:443                                        
+tcp   ESTAB      0      0               172.21.198.239:44746    52.96.111.66:443  users:(("firefox",pid=1512358,fd=176))
+tcp   ESTAB      0      0               172.21.198.239:50550 209.177.156.197:443                                        
+tcp   ESTAB      0      0               172.21.198.239:35050   192.200.0.102:443                                        
+tcp   ESTAB      0      0               172.21.198.239:32768   160.79.104.10:443  users:(("claude",pid=1532215,fd=24))  
+tcp   ESTAB      0      0               172.21.198.239:32782   160.79.104.10:443  users:(("claude",pid=1532215,fd=26))  
+tcp   ESTAB      0      0               172.21.198.239:34014   160.79.104.10:443  users:(("claude",pid=5275,fd=18))     
+ss unavailable
+
+=== Default Route ===
+default via 172.21.192.1 dev wlp192s0 proto dhcp src 172.21.198.239 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1119247549  415098    0    0    0     0          0         0 1119247549  415098    0    0    0     0       0          0
+wlp192s0: 29264056628 23532463    0 56131    0     0          0         0 3638055748 9582921    0   48    0     0       0          0
+tailscale0: 6342297   61175    0    0    0     0          0         0 17823187   99866    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 64.233.185.113
+google.com has address 64.233.185.102
+google.com has address 64.233.185.101
+-->

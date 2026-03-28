@@ -1,0 +1,42 @@
+---
+observer: disk
+timestamp: 20260327-160654
+---
+One point one terabytes full
+Sixty-three percent used on root
+Inodes at three percent
+
+---
+observations: |
+  ## Disk Usage (df -h)
+  Filesystem      Size  Used Avail Use% Mounted on
+  tmpfs           9.4G  4.5M  9.4G   1% /run
+  /dev/nvme0n1p2  1.8T  1.1T  654G  63% /
+  tmpfs            47G   21M   47G   1% /dev/shm
+  tmpfs           5.0M   16K  5.0M   1% /run/lock
+  efivarfs        148K   75K   69K  53% /sys/firmware/efi/efivars
+  /dev/nvme0n1p1  1.1G  6.2M  1.1G   1% /boot/efi
+  tmpfs           9.4G  5.5M  9.4G   1% /run/user/1000
+  
+  ## Haiku Directory Size
+  8.7M	/home/erik/autohaiku/haikus
+  
+  ## Root Inode Usage
+  /dev/nvme0n1p2 122028032 3241966 118786066    3% /
+  
+  ## Recently Modified Files (last 5 min)
+  /home/erik/autohaiku/haiku-loop-daemon.log
+  /home/erik/.cargo/.crates.toml
+  /home/erik/.cargo/.crates2.json
+  /home/erik/.cargo/.global-cache
+  /home/erik/.claude.json
+  /home/erik/.zsh_history
+  /home/erik/.claude/history.jsonl
+  
+  ## Most Recent Haikus
+  -rw-rw-r-- 1 erik erik  122 Mar 27 11:01 /home/erik/autohaiku/haikus/process-20260327-160142.haiku
+  -rw-rw-r-- 1 erik erik 3251 Mar 27 11:01 /home/erik/autohaiku/haikus/network-20260327-160142.haiku
+  -rw-rw-r-- 1 erik erik 1480 Mar 27 11:01 /home/erik/autohaiku/haikus/disk-20260327-160142.haiku
+  -rw-rw-r-- 1 erik erik 3269 Mar 27 10:56 /home/erik/autohaiku/haikus/network-20260327-155637.haiku
+  -rw-rw-r-- 1 erik erik  127 Mar 27 10:56 /home/erik/autohaiku/haikus/process-20260327-155637.haiku
+  no haikus yet

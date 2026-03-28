@@ -1,0 +1,52 @@
+---
+observer: network
+timestamp: 20260327-075636
+---
+Ping to 8.8.8.8 failed
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 192.168.12.156/24 brd 192.168.12.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+ping to 8.8.8.8 failed
+
+=== Ping google.com ===
+ping: google.com: Name or service not known
+ping to google.com failed
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                             Local Address:Port                             Peer Address:PortProcess                                    
+udp   ESTAB      0      0                                      127.0.0.1:52467                              127.0.0.53:53   users:(("firefox",pid=3059936,fd=334))    
+udp   ESTAB      0      0                                      127.0.0.1:53006                              127.0.0.53:53   users:(("firefox",pid=3059936,fd=139))    
+udp   ESTAB      0      0                                 192.168.12.156:53008                            192.168.12.1:53                                             
+udp   ESTAB      0      0                                 192.168.12.156:53166                            192.168.12.1:53                                             
+udp   ESTAB      0      0                                 192.168.12.156:53210                            192.168.12.1:53                                             
+udp   ESTAB      0      0                                 192.168.12.156:53476                            192.168.12.1:53                                             
+udp   ESTAB      0      0                                      127.0.0.1:53516                              127.0.0.53:53   users:(("firefox",pid=3059936,fd=304))    
+udp   ESTAB      0      0                                 192.168.12.156:53930                            192.168.12.1:53                                             
+udp   ESTAB      0      0                                      127.0.0.1:54032                              127.0.0.53:53   users:(("firefox",pid=3059936,fd=229))    
+ss unavailable
+
+=== Default Route ===
+default via 192.168.12.1 dev wlp192s0 proto dhcp src 192.168.12.156 metric 20600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1208562206 1199355    0    0    0     0          0         0 1208562206 1199355    0    0    0     0       0          0
+wlp192s0: 71674567731 59006893    0 169075    0     0          0         0 10504912260 25710021    0   79    0     0       0          0
+tailscale0: 34580970  304272    0    0    0     0          0         0 75189261  417431    0    0    0     0       0          0
+
+=== DNS Resolution ===
+;; communications error to 127.0.0.53#53: timed out
+;; communications error to 127.0.0.53#53: timed out
+;; no servers could be reached
+;; communications error to 127.0.0.53#53: timed out
+;; communications error to 127.0.0.53#53: timed out
+-->

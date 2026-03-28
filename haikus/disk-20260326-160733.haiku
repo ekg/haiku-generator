@@ -1,0 +1,43 @@
+---
+observer: disk
+timestamp: 20260326-160733
+---
+Haiku directory grows
+Seven point seven megabytes of verse
+Inode usage low
+
+---
+observations: |
+  ## Disk Usage (df -h)
+  Filesystem      Size  Used Avail Use% Mounted on
+  tmpfs           9.4G  4.6M  9.4G   1% /run
+  /dev/nvme0n1p2  1.8T  1.1T  665G  62% /
+  tmpfs            47G   21M   47G   1% /dev/shm
+  tmpfs           5.0M   16K  5.0M   1% /run/lock
+  efivarfs        148K   75K   69K  53% /sys/firmware/efi/efivars
+  /dev/nvme0n1p1  1.1G  6.2M  1.1G   1% /boot/efi
+  tmpfs           9.4G  4.2M  9.4G   1% /run/user/1000
+  
+  ## Haiku Directory Size
+  7.7M	/home/erik/autohaiku/haikus
+  
+  ## Root Inode Usage
+  /dev/nvme0n1p2 122028032 3216660 118811372    3% /
+  
+  ## Recently Modified Files (last 5 min)
+  /home/erik/.python_history
+  /home/erik/autohaiku/haiku-loop-daemon.log
+  /home/erik/.cargo/.crates.toml
+  /home/erik/.cargo/.crates2.json
+  /home/erik/.claude.json
+  /home/erik/.zsh_history
+  /home/erik/.claude/history.jsonl
+  /home/erik/.config/zoomus.conf
+  
+  ## Most Recent Haikus
+  -rw-rw-r-- 1 erik erik 3262 Mar 26 11:02 /home/erik/autohaiku/haikus/network-20260326-160228.haiku
+  -rw-rw-r-- 1 erik erik 1428 Mar 26 11:02 /home/erik/autohaiku/haikus/disk-20260326-160228.haiku
+  -rw-rw-r-- 1 erik erik  126 Mar 26 11:02 /home/erik/autohaiku/haikus/process-20260326-160228.haiku
+  -rw-rw-r-- 1 erik erik  124 Mar 26 10:57 /home/erik/autohaiku/haikus/process-20260326-155720.haiku
+  -rw-rw-r-- 1 erik erik 1532 Mar 26 10:57 /home/erik/autohaiku/haikus/disk-20260326-155720.haiku
+  no haikus yet

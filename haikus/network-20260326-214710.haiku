@@ -1,0 +1,56 @@
+---
+observer: network
+timestamp: 20260326-214710
+---
+Claude pings google
+on interface wlp192s0
+latency twenty six
+
+<!-- observation data
+=== IP Addresses ===
+    inet 127.0.0.1/8 scope host lo
+    inet 172.21.194.38/21 brd 172.21.199.255 scope global dynamic noprefixroute wlp192s0
+    inet 100.118.217.81/32 scope global tailscale0
+
+=== Ping 8.8.8.8 ===
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=112 time=22.8 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 22.752/22.752/22.752/0.000 ms
+
+=== Ping google.com ===
+PING google.com (74.125.21.138) 56(84) bytes of data.
+64 bytes from yv-in-f138.1e100.net (74.125.21.138): icmp_seq=1 ttl=102 time=26.2 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 26.178/26.178/26.178/0.000 ms
+
+=== Active Connections (ss) ===
+Netid State      Recv-Q Send-Q                             Local Address:Port                             Peer Address:PortProcess                                
+udp   ESTAB      0      0                         172.21.194.38%wlp192s0:68                               172.23.23.24:67                                         
+tcp   ESTAB      0      0                                  172.21.194.38:36924                          199.38.182.118:443                                        
+tcp   ESTAB      0      0                                  172.21.194.38:34996                            35.190.46.17:443  users:(("claude",pid=760711,fd=23))   
+tcp   ESTAB      0      0                                  172.21.194.38:35004                            35.190.46.17:443  users:(("claude",pid=760815,fd=24))   
+tcp   ESTAB      0      0                                  172.21.194.38:35020                            35.190.46.17:443  users:(("claude",pid=760873,fd=24))   
+tcp   ESTAB      0      0                                  172.21.194.38:53396                            35.190.46.17:443  users:(("claude",pid=761458,fd=24))   
+tcp   ESTAB      0      0                                  172.21.194.38:53402                            35.190.46.17:443  users:(("claude",pid=761591,fd=24))   
+tcp   ESTAB      0      0                                  172.21.194.38:55464                            35.190.46.17:443  users:(("claude",pid=761843,fd=24))   
+tcp   ESTAB      0      0                                  172.21.194.38:55480                            35.190.46.17:443  users:(("claude",pid=761874,fd=24))   
+ss unavailable
+
+=== Default Route ===
+default via 172.21.192.1 dev wlp192s0 proto dhcp src 172.21.194.38 metric 600 
+
+=== Interface Traffic (/proc/net/dev) ===
+    lo: 1182242383  946638    0    0    0     0          0         0 1182242383  946638    0    0    0     0       0          0
+wlp192s0: 69199946000 56944091    0 154040    0     0          0         0 10278122077 24196687    0   64    0     0       0          0
+tailscale0: 29837580  263302    0    0    0     0          0         0 67654098  363917    0    0    0     0       0          0
+
+=== DNS Resolution ===
+google.com has address 74.125.21.138
+google.com has address 74.125.21.139
+google.com has address 74.125.21.101
+-->

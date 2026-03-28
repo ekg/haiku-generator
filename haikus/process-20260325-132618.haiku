@@ -1,0 +1,7 @@
+---
+observer: process
+timestamp: 20260325-132618
+---
+Processes chase each loop
+The "wg tui" eats the CPU
+Memory vast, still free

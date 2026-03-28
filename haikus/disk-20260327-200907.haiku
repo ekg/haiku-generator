@@ -1,0 +1,37 @@
+---
+observer: disk
+timestamp: 20260327-200907
+---
+Haiku directory holds
+Nine point three megabytes of verse
+Inodes barely used
+
+---
+observations: |
+  ## Disk Usage (df -h)
+  Filesystem      Size  Used Avail Use% Mounted on
+  tmpfs           9.4G  4.0M  9.4G   1% /run
+  /dev/nvme0n1p2  1.8T  1.1T  654G  63% /
+  tmpfs            47G   21M   47G   1% /dev/shm
+  tmpfs           5.0M   16K  5.0M   1% /run/lock
+  efivarfs        148K   75K   69K  53% /sys/firmware/efi/efivars
+  /dev/nvme0n1p1  1.1G  6.2M  1.1G   1% /boot/efi
+  tmpfs           9.4G  5.6M  9.4G   1% /run/user/1000
+  
+  ## Haiku Directory Size
+  9.3M	/home/erik/autohaiku/haikus
+  
+  ## Root Inode Usage
+  /dev/nvme0n1p2 122028032 3257263 118770769    3% /
+  
+  ## Recently Modified Files (last 5 min)
+  /home/erik/autohaiku/haiku-loop-daemon.log
+  /home/erik/.claude/mcp-needs-auth-cache.json
+  
+  ## Most Recent Haikus
+  -rw-rw-r-- 1 erik erik 1355 Mar 27 15:04 /home/erik/autohaiku/haikus/disk-20260327-200352.haiku
+  -rw-rw-r-- 1 erik erik 3295 Mar 27 15:04 /home/erik/autohaiku/haikus/network-20260327-200352.haiku
+  -rw-rw-r-- 1 erik erik  122 Mar 27 15:03 /home/erik/autohaiku/haikus/process-20260327-200352.haiku
+  -rw-rw-r-- 1 erik erik 3305 Mar 27 14:58 /home/erik/autohaiku/haikus/network-20260327-195843.haiku
+  -rw-rw-r-- 1 erik erik  131 Mar 27 14:58 /home/erik/autohaiku/haikus/process-20260327-195843.haiku
+  no haikus yet
