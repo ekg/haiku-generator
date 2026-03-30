@@ -18,8 +18,13 @@ Compatible with the bash version in scripts/haiku-core.sh.
 import json
 import os
 import sys
+import hashlib
+import glob
+import threading
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, Set
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler, FileSystemEvent
 
 
 # ── Configuration defaults ────────────────────────────────────────────────────
@@ -29,6 +34,203 @@ HAIKU_DIR = os.environ.get("HAIKU_DIR", os.path.join(_PROJECT_DIR, "haikus"))
 HAIKU_LOG_FILE = os.environ.get(
     "HAIKU_LOG_FILE", os.path.join(_PROJECT_DIR, "haiku-log.txt")
 )
+
+
+# ── Duplicate Detection ───────────────────────────────────────────────────────
+
+
+def _normalize_haiku_text(haiku_text: str) -> str:
+    """
+    Normalize haiku text for duplicate comparison by:
+    - Stripping whitespace
+    - Converting to lowercase
+    - Normalizing line endings
+    - Removing extra spaces
+    """
+    return "\n".join(
+        line.strip().lower()
+        for line in haiku_text.strip().split("\n")
+        if line.strip()
+    )
+
+
+def _haiku_content_hash(haiku_text: str) -> str:
+    """Generate a content hash for a haiku for duplicate detection."""
+    normalized = _normalize_haiku_text(haiku_text)
+    return hashlib.sha256(normalized.encode('utf-8')).hexdigest()[:16]
+
+
+def _extract_haiku_content(haiku_file_path: str) -> str:
+    """Extract the haiku content (after frontmatter) from a .haiku file."""
+    try:
+        with open(haiku_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Split by YAML frontmatter delimiters
+        parts = content.split('---')
+        if len(parts) >= 3:
+            # Content after second '---'
+            haiku_content = '---'.join(parts[2:]).strip()
+            return haiku_content
+        else:
+            # No frontmatter, return whole content
+            return content.strip()
+    except (OSError, UnicodeDecodeError):
+        return ""
+
+
+def check_duplicate_haiku(haiku_text: str, haiku_dir: Optional[str] = None) -> Optional[str]:
+    """
+    Check if a haiku already exists in the haiku directory.
+
+    Args:
+        haiku_text: The haiku text to check
+        haiku_dir: Directory to search (defaults to HAIKU_DIR)
+
+    Returns:
+        Path to existing haiku file if duplicate found, None otherwise
+    """
+    search_dir = haiku_dir or HAIKU_DIR
+    if not os.path.exists(search_dir):
+        return None
+
+    target_hash = _haiku_content_hash(haiku_text)
+
+    # Check all existing .haiku files
+    for haiku_file in glob.glob(os.path.join(search_dir, "*.haiku")):
+        existing_content = _extract_haiku_content(haiku_file)
+        if existing_content and _haiku_content_hash(existing_content) == target_hash:
+            return haiku_file
+
+    return None
+
+
+# ── File System Monitoring ────────────────────────────────────────────────────
+
+
+class HaikuDirectoryHandler(FileSystemEventHandler):
+    """File system event handler for monitoring the haikus directory."""
+
+    def __init__(self, log_file: Optional[str] = None):
+        super().__init__()
+        self.log_file = log_file or HAIKU_LOG_FILE
+        self.monitored_extensions = {'.haiku'}
+
+    def _log_event(self, event_type: str, path: str) -> None:
+        """Log file system events to the monitoring log."""
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+        log_entry = f"[{timestamp}] [FS-MONITOR] {event_type}: {os.path.basename(path)}\n"
+
+        try:
+            with open(self.log_file, 'a', encoding='utf-8') as f:
+                f.write(log_entry)
+        except OSError:
+            print(f"Warning: Could not write to monitoring log: {self.log_file}", file=sys.stderr)
+
+    def on_created(self, event: FileSystemEvent) -> None:
+        if not event.is_directory and any(event.src_path.endswith(ext) for ext in self.monitored_extensions):
+            self._log_event("CREATED", event.src_path)
+
+    def on_modified(self, event: FileSystemEvent) -> None:
+        if not event.is_directory and any(event.src_path.endswith(ext) for ext in self.monitored_extensions):
+            self._log_event("MODIFIED", event.src_path)
+
+    def on_deleted(self, event: FileSystemEvent) -> None:
+        if not event.is_directory and any(event.src_path.endswith(ext) for ext in self.monitored_extensions):
+            self._log_event("DELETED", event.src_path)
+
+
+class HaikuDirectoryMonitor:
+    """Manages file system monitoring for the haikus directory."""
+
+    def __init__(self, haiku_dir: Optional[str] = None, log_file: Optional[str] = None):
+        self.haiku_dir = haiku_dir or HAIKU_DIR
+        self.log_file = log_file or HAIKU_LOG_FILE
+        self.observer = None
+        self.handler = None
+        self._lock = threading.Lock()
+
+    def start_monitoring(self) -> bool:
+        """
+        Start monitoring the haikus directory for file system changes.
+
+        Returns:
+            True if monitoring started successfully, False otherwise
+        """
+        with self._lock:
+            if self.observer and self.observer.is_alive():
+                return True  # Already monitoring
+
+            if not os.path.exists(self.haiku_dir):
+                os.makedirs(self.haiku_dir, exist_ok=True)
+
+            try:
+                self.handler = HaikuDirectoryHandler(self.log_file)
+                self.observer = Observer()
+                self.observer.schedule(self.handler, self.haiku_dir, recursive=False)
+                self.observer.start()
+
+                # Log that monitoring started
+                timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+                log_entry = f"[{timestamp}] [FS-MONITOR] STARTED: Monitoring {self.haiku_dir}\n"
+                with open(self.log_file, 'a', encoding='utf-8') as f:
+                    f.write(log_entry)
+
+                return True
+            except Exception as e:
+                print(f"Error starting file system monitor: {e}", file=sys.stderr)
+                return False
+
+    def stop_monitoring(self) -> None:
+        """Stop monitoring the haikus directory."""
+        with self._lock:
+            if self.observer and self.observer.is_alive():
+                self.observer.stop()
+                self.observer.join(timeout=5)
+
+                # Log that monitoring stopped
+                timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+                log_entry = f"[{timestamp}] [FS-MONITOR] STOPPED: Monitoring {self.haiku_dir}\n"
+                try:
+                    with open(self.log_file, 'a', encoding='utf-8') as f:
+                        f.write(log_entry)
+                except OSError:
+                    pass
+
+    def is_monitoring(self) -> bool:
+        """Check if monitoring is currently active."""
+        with self._lock:
+            return self.observer is not None and self.observer.is_alive()
+
+
+# Global monitor instance
+_global_monitor = None
+
+
+def start_file_system_monitoring(haiku_dir: Optional[str] = None, log_file: Optional[str] = None) -> bool:
+    """
+    Start file system monitoring for the haikus directory.
+
+    Returns:
+        True if monitoring started successfully, False otherwise
+    """
+    global _global_monitor
+    if _global_monitor is None:
+        _global_monitor = HaikuDirectoryMonitor(haiku_dir, log_file)
+    return _global_monitor.start_monitoring()
+
+
+def stop_file_system_monitoring() -> None:
+    """Stop file system monitoring."""
+    global _global_monitor
+    if _global_monitor:
+        _global_monitor.stop_monitoring()
+
+
+def is_monitoring_active() -> bool:
+    """Check if file system monitoring is currently active."""
+    global _global_monitor
+    return _global_monitor is not None and _global_monitor.is_monitoring()
 
 
 # ── generate_haiku ────────────────────────────────────────────────────────────
@@ -88,14 +290,16 @@ def publish_haiku(
     observer: str = "news",
     haiku_dir: Optional[str] = None,
     log_file: Optional[str] = None,
+    skip_duplicate_check: bool = False,
 ) -> str:
     """
     Save a generated haiku to the haiku stream (file + log).
 
     This function handles data persistence for haikus by:
-    1. Writing a .haiku file with YAML frontmatter to the haikus/ directory
+    1. Checking for duplicate content (unless skip_duplicate_check=True)
+    2. Writing a .haiku file with YAML frontmatter to the haikus/ directory
        using an atomic write pattern (temp file + rename) for crash safety.
-    2. Appending a human-readable entry to the aggregate haiku log file.
+    3. Appending a human-readable entry to the aggregate haiku log file.
 
     Args:
         haiku_text: The haiku text (typically three lines, 5-7-5 syllables).
@@ -106,10 +310,11 @@ def publish_haiku(
         observer:   Observer name for the filename prefix (default: "news").
         haiku_dir:  Override the output directory (default: HAIKU_DIR).
         log_file:   Override the log file path (default: HAIKU_LOG_FILE).
+        skip_duplicate_check: If True, skip duplicate detection (default: False).
 
     Returns:
         The path to the written .haiku file, or an empty string if haiku_text
-        was empty.
+        was empty or if a duplicate was found.
 
     Raises:
         OSError: If file operations fail (disk full, permissions, etc.)
@@ -128,6 +333,13 @@ def publish_haiku(
     # Resolve configuration
     out_dir = haiku_dir or HAIKU_DIR
     out_log = log_file or HAIKU_LOG_FILE
+
+    # Check for duplicate content (unless explicitly skipped)
+    if not skip_duplicate_check:
+        existing_file = check_duplicate_haiku(haiku_text, out_dir)
+        if existing_file:
+            print(f"Duplicate haiku detected, skipping: {os.path.basename(existing_file)}", file=sys.stderr)
+            return ""
 
     # Generate timestamp if not provided
     if not timestamp:
@@ -242,6 +454,45 @@ if __name__ == "__main__":
         item = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else None
         result = run_haiku_pipeline(item)
         print(result)
+    elif len(sys.argv) > 1 and sys.argv[1] == "check-duplicate":
+        # Usage: python haiku_generator.py check-duplicate "haiku text"
+        if len(sys.argv) < 3:
+            print("Usage: python haiku_generator.py check-duplicate <haiku_text>", file=sys.stderr)
+            sys.exit(1)
+        h_text = sys.argv[2]
+        duplicate_file = check_duplicate_haiku(h_text)
+        if duplicate_file:
+            print(f"Duplicate found: {duplicate_file}")
+            sys.exit(1)
+        else:
+            print("No duplicate found")
+            sys.exit(0)
+    elif len(sys.argv) > 1 and sys.argv[1] == "start-monitoring":
+        # Usage: python haiku_generator.py start-monitoring
+        success = start_file_system_monitoring()
+        if success:
+            print("File system monitoring started")
+            # Keep running until interrupted
+            try:
+                while is_monitoring_active():
+                    import time
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                print("\nStopping monitoring...")
+                stop_file_system_monitoring()
+        else:
+            print("Failed to start file system monitoring", file=sys.stderr)
+            sys.exit(1)
+    elif len(sys.argv) > 1 and sys.argv[1] == "stop-monitoring":
+        # Usage: python haiku_generator.py stop-monitoring
+        stop_file_system_monitoring()
+        print("File system monitoring stopped")
+    elif len(sys.argv) > 1 and sys.argv[1] == "monitoring-status":
+        # Usage: python haiku_generator.py monitoring-status
+        if is_monitoring_active():
+            print("File system monitoring is ACTIVE")
+        else:
+            print("File system monitoring is INACTIVE")
     else:
         # Default: example usage
         example_news = "The stock market experienced a significant rally today, with major indices closing up by over 2%."

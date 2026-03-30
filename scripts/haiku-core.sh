@@ -21,7 +21,7 @@ set -euo pipefail
 
 # ── Configuration defaults ────────────────────────────────────────────────────
 
-SCRIPT_DIR_CORE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR_CORE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 PROJECT_DIR_CORE="$(dirname "$SCRIPT_DIR_CORE")"
 
 HAIKU_DIR="${HAIKU_DIR:-$PROJECT_DIR_CORE/haikus}"
@@ -185,6 +185,109 @@ ${news_summary}"
   echo "$haiku_text"
 }
 
+# ── Duplicate Detection ───────────────────────────────────────────────────────
+
+#
+# normalize_haiku_text — Normalize haiku text for comparison
+#
+normalize_haiku_text() {
+  local haiku_text="$1"
+  # Convert literal \n to newlines first, then normalize whitespace, convert to lowercase
+  echo "$haiku_text" | sed 's/\\n/\n/g' | tr '[:upper:]' '[:lower:]' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | tr '\n' '|'
+}
+
+#
+# haiku_content_hash — Generate content hash for duplicate detection
+#
+haiku_content_hash() {
+  local haiku_text="$1"
+  local normalized
+  normalized=$(normalize_haiku_text "$haiku_text")
+  echo "$normalized" | sha256sum | cut -c1-16
+}
+
+#
+# extract_haiku_content — Extract haiku content from a .haiku file
+#
+extract_haiku_content() {
+  local haiku_file="$1"
+  if [[ ! -f "$haiku_file" ]]; then
+    return 1
+  fi
+
+  # Extract content after the closing '---' line and convert \n to actual newlines
+  awk '/^---$/{c++; if(c==2) f=1; next} f && NF' "$haiku_file" 2>/dev/null | sed 's/\\n/\n/g' || echo ""
+}
+
+#
+# check_duplicate_haiku — Check if a haiku already exists
+#
+# Usage: check_duplicate_haiku "$haiku_text" [haiku_dir]
+# Returns: 0 if duplicate found (prints filename), 1 if no duplicate
+#
+check_duplicate_haiku() {
+  local haiku_text="$1"
+  local search_dir="${2:-$HAIKU_DIR}"
+
+  if [[ ! -d "$search_dir" ]]; then
+    return 1
+  fi
+
+  local target_hash existing_content existing_hash
+  target_hash=$(haiku_content_hash "$haiku_text")
+
+  # Check all existing .haiku files
+  for haiku_file in "$search_dir"/*.haiku; do
+    [[ -f "$haiku_file" ]] || continue
+    existing_content=$(extract_haiku_content "$haiku_file")
+    [[ -n "$existing_content" ]] || continue
+    existing_hash=$(haiku_content_hash "$existing_content")
+
+    if [[ "$existing_hash" = "$target_hash" ]]; then
+      echo "$haiku_file"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+# ── File System Monitoring ────────────────────────────────────────────────────
+
+#
+# start_fs_monitoring — Start file system monitoring using inotifywait
+#
+# Usage: start_fs_monitoring [haiku_dir] [log_file] &
+# Note: This runs in background, so use & when calling
+#
+start_fs_monitoring() {
+  local watch_dir="${1:-$HAIKU_DIR}"
+  local log_file="${2:-$HAIKU_LOG_FILE}"
+
+  if [[ ! -d "$watch_dir" ]]; then
+    mkdir -p "$watch_dir"
+  fi
+
+  # Check if inotifywait is available
+  if ! command -v inotifywait >/dev/null 2>&1; then
+    echo "[FS-MONITOR] ERROR: inotifywait not available. Install inotify-tools package." >&2
+    return 1
+  fi
+
+  local timestamp
+  timestamp=$(date -u +%Y-%m-%dT%H:%M:%S)
+  echo "[${timestamp}] [FS-MONITOR] STARTED: Monitoring $watch_dir" >> "$log_file"
+
+  # Monitor for create, modify, delete events on .haiku files
+  inotifywait -m -e create,modify,delete --format '[%T] [FS-MONITOR] %e: %f' --timefmt '%Y-%m-%dT%H:%M:%S' "$watch_dir" 2>/dev/null |
+    while read -r event; do
+      # Only log .haiku file events
+      if [[ "$event" =~ \.haiku$ ]]; then
+        echo "$event" >> "$log_file"
+      fi
+    done
+}
+
 # ── 3) publish_haiku ─────────────────────────────────────────────────────────
 #
 # Saves a haiku to the haiku stream: writes a .haiku file and appends to the log.
@@ -206,6 +309,7 @@ publish_haiku() {
   local haiku_text="$1"
   local news_json="${2:-'{}'}"
   local timestamp="${3:-$(date -u +%Y%m%d-%H%M%S)}"
+  local skip_duplicate_check="${4:-false}"
 
   if [[ -z "$haiku_text" ]]; then
     echo "ERROR: No haiku text to publish" >&2
@@ -213,6 +317,15 @@ publish_haiku() {
   fi
 
   mkdir -p "$HAIKU_DIR"
+
+  # Check for duplicate content (unless explicitly skipped)
+  if [[ "$skip_duplicate_check" != "true" ]]; then
+    local existing_file
+    if existing_file=$(check_duplicate_haiku "$haiku_text" "$HAIKU_DIR"); then
+      echo "Duplicate haiku detected, skipping: $(basename "$existing_file")" >&2
+      return 0
+    fi
+  fi
 
   # Extract news metadata for the haiku file frontmatter
   local title source_url
@@ -301,7 +414,7 @@ run_haiku_pipeline() {
 
 # ── Direct invocation support ─────────────────────────────────────────────────
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-$0}" == "${0}" ]]; then
   case "${1:-}" in
     run)
       shift
@@ -319,14 +432,40 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
       shift
       publish_haiku "$@"
       ;;
+    check-duplicate)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo "Usage: $0 check-duplicate <haiku_text>" >&2
+        exit 1
+      fi
+      if check_duplicate_haiku "$1" >/dev/null; then
+        duplicate_file=$(check_duplicate_haiku "$1")
+        echo "Duplicate found: $duplicate_file"
+        exit 1
+      else
+        echo "No duplicate found"
+        exit 0
+      fi
+      ;;
+    start-monitoring)
+      if command -v inotifywait >/dev/null 2>&1; then
+        echo "Starting file system monitoring..."
+        start_fs_monitoring "$HAIKU_DIR" "$HAIKU_LOG_FILE"
+      else
+        echo "ERROR: inotifywait not available. Install inotify-tools package." >&2
+        exit 1
+      fi
+      ;;
     *)
-      echo "Usage: $0 {run|fetch|generate|publish} [args...]"
+      echo "Usage: $0 {run|fetch|generate|publish|check-duplicate|start-monitoring} [args...]"
       echo ""
       echo "Commands:"
       echo "  run [item_id]                        Run full pipeline (fetch→generate→publish)"
       echo "  fetch [item_id]                      Fetch a news item (JSON output)"
       echo "  generate <news_json>                 Generate haiku from news JSON"
       echo "  publish <haiku_text> <news_json> [ts] Publish haiku to stream"
+      echo "  check-duplicate <haiku_text>         Check if haiku already exists"
+      echo "  start-monitoring                     Start file system monitoring"
       echo ""
       echo "Or source this file for function access:"
       echo "  source scripts/haiku-core.sh"
