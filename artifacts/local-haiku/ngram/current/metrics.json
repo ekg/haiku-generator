@@ -1,0 +1,18 @@
+{
+  "alpha": 0.05,
+  "dataset": "data/local-haiku/dataset.jsonl",
+  "dev_example_count": 232,
+  "dev_negative_log_likelihood": 1.004464244735374,
+  "dev_perplexity": 2.7304440311267624,
+  "dev_token_count": 20382,
+  "effective_order": 4,
+  "format": "local-haiku-ngram-metrics-v1",
+  "requested_order": 4,
+  "runtime": "CPU-only Python standard library; no cloud APIs or GPU dependencies",
+  "skipped_invalid_train_count": 92,
+  "train_example_count": 1929,
+  "train_poem_hash_count": 2021,
+  "transition_context_count": 6302,
+  "vocabulary_size": 88,
+  "word_vocabulary_size": 1475
+}
