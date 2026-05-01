@@ -1,0 +1,178 @@
+{
+  "metrics": {
+    "failed_count": 0,
+    "failure_counts": {},
+    "lexical_coherence": {
+      "artifact_marker_count": 0,
+      "fail_count": 0,
+      "fused_fragment_count": 0,
+      "pass_count": 3
+    },
+    "pass_rate": 1.0,
+    "passed_count": 3,
+    "sample_count": 3,
+    "topic_overlap": {
+      "fail_count": 0,
+      "pass_count": 3,
+      "prompted_count": 3
+    },
+    "warning_counts": {
+      "syllable_proxy": 2
+    }
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.06666666666666665,
+        "estimated_syllables": [
+          8,
+          11,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 15
+        },
+        "line_chars": [
+          25,
+          41,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.14705882352941177,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "samples-1",
+      "lines": [
+        "Latency free percent used",
+        "Haikus wider watchfull glow andless weavy",
+        "Firefox tabs line percent twent"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "artifacts/local-haiku/ngram/local-operation-smoke/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.09090909090909094,
+        "estimated_syllables": [
+          6,
+          6,
+          4
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 11
+        },
+        "line_chars": [
+          21,
+          25,
+          16
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.08208955223880597,
+        "nearest_train_similarity": 0.273972602739726,
+        "prompt_keywords": [
+          "build",
+          "bytes",
+          "cache.",
+          "disk"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-2",
+      "lines": [
+        "Disk used climbs many",
+        "loats free percenty-three",
+        "Root sixty-three"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk bytes in a build cache.",
+      "source": "artifacts/local-haiku/ngram/local-operation-smoke/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          4,
+          4,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.09090909090909091,
+          "token_count": 11
+        },
+        "line_chars": [
+          12,
+          17,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.045454545454545456,
+        "nearest_train_similarity": 0.18018018018018017,
+        "prompt_keywords": [
+          "at",
+          "dawn.",
+          "memory",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-3",
+      "lines": [
+        "Process away",
+        "Claude point used",
+        "In three ms\u2014tworkgraph the strou"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory at dawn.",
+      "source": "artifacts/local-haiku/ngram/local-operation-smoke/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    }
+  ]
+}

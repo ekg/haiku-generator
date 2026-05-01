@@ -13,6 +13,7 @@ import math
 from pathlib import Path
 import random
 import re
+import sys
 from typing import Iterable, Mapping, Sequence
 from urllib.parse import quote
 
@@ -35,6 +36,14 @@ DEFAULT_ORDER = 4
 DEFAULT_ALPHA = 0.05
 DEFAULT_MAX_LINE_CHARS = (32, 44, 32)
 DEFAULT_MIN_LINE_CHARS = (8, 12, 8)
+DEFAULT_VALIDATED_MODEL = (
+    Path(__file__).resolve().parents[1]
+    / "artifacts"
+    / "local-haiku"
+    / "ngram"
+    / "baseline-validation"
+    / "model.json.gz"
+)
 WORD_PATTERN = re.compile(r"[A-Za-z0-9_./:%']+")
 PROMPT_TOPIC_ANCHORS = (
     (
@@ -280,7 +289,11 @@ def train_main(argv: Sequence[str] | None = None) -> int:
 
 def generate_main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate from a local CPU-only haiku n-gram model.")
-    parser.add_argument("--model", required=True, help="Model JSON gzip artifact.")
+    parser.add_argument(
+        "--model",
+        default=str(DEFAULT_VALIDATED_MODEL),
+        help=f"Model JSON gzip artifact. Defaults to validated local CPU n-gram artifact: {DEFAULT_VALIDATED_MODEL}",
+    )
     parser.add_argument("--prompt", default="", help="Prompt text to condition the control-token prefix.")
     parser.add_argument("--observer", help="Observer tag override, for example disk/network/process.")
     parser.add_argument("--seed", type=int, help="Deterministic random seed.")
@@ -288,14 +301,25 @@ def generate_main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--samples-out", help="Optional JSONL file for the accepted sample.")
     args = parser.parse_args(argv)
 
-    model = load_model(args.model)
-    poem, metadata = generate_haiku(
-        model,
-        prompt=args.prompt,
-        observer=args.observer,
-        seed=args.seed,
-        max_attempts=args.max_attempts,
-    )
+    try:
+        model = load_model(args.model)
+        poem, metadata = generate_haiku(
+            model,
+            prompt=args.prompt,
+            observer=args.observer,
+            seed=args.seed,
+            max_attempts=args.max_attempts,
+        )
+    except FileNotFoundError:
+        print(f"ERROR: local haiku model artifact not found: {args.model}", file=sys.stderr)
+        return 2
+    except (OSError, ValueError) as exc:
+        print(f"ERROR: failed to load local haiku model artifact {args.model}: {exc}", file=sys.stderr)
+        return 2
+    except RuntimeError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
     if args.samples_out:
         out = Path(args.samples_out)
         out.parent.mkdir(parents=True, exist_ok=True)

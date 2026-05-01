@@ -10,6 +10,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from local_haiku_ngram import (  # noqa: E402
+    DEFAULT_VALIDATED_MODEL,
     L1_TOKEN,
     _allowed_tokens,
     generate_haiku,
@@ -145,6 +146,49 @@ def test_cli_training_and_generation_shapes(tmp_path: Path, capsys):
     assert metrics_path.exists()
     assert len(generated.splitlines()) == 3
     assert samples_path.read_text(encoding="utf-8").count("\n") == 1
+
+
+def test_cli_generation_defaults_to_validated_artifact(capsys):
+    assert DEFAULT_VALIDATED_MODEL.exists()
+
+    generate_exit = generate_main(
+        [
+            "--prompt",
+            "Write a haiku about localhost latency.",
+            "--seed",
+            "301",
+        ]
+    )
+    generated = capsys.readouterr().out.strip()
+
+    assert generate_exit == 0
+    assert len(generated.splitlines()) == 3
+
+
+def test_cli_generation_reports_validation_exhaustion(tmp_path: Path, capsys):
+    dataset = tmp_path / "dataset.jsonl"
+    model_path = tmp_path / "model.json.gz"
+    _write_fixture_dataset(dataset)
+    model, _metrics = train_model(dataset, order=4)
+    save_model(model, model_path)
+
+    generate_exit = generate_main(
+        [
+            "--model",
+            str(model_path),
+            "--prompt",
+            "disk pressure",
+            "--seed",
+            "11",
+            "--max-attempts",
+            "0",
+        ]
+    )
+    captured = capsys.readouterr()
+
+    assert generate_exit == 2
+    assert captured.out == ""
+    assert "ERROR: no accepted candidate after 0 attempts" in captured.err
 
 
 def test_tiny_fixture_falls_back_to_smaller_effective_order(tmp_path: Path):
