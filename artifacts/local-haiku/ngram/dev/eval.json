@@ -1,0 +1,59 @@
+{
+  "metrics": {
+    "failed_count": 0,
+    "failure_counts": {},
+    "pass_rate": 1.0,
+    "passed_count": 1,
+    "sample_count": 1,
+    "topic_overlap": {
+      "fail_count": 0,
+      "pass_count": 1,
+      "prompted_count": 1
+    },
+    "warning_counts": {}
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          3,
+          7,
+          6
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          12,
+          28,
+          20
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.13924050632911392,
+        "prompt_keywords": [
+          "disk",
+          "pressure"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-1",
+      "lines": [
+        "Erik's sease",
+        "Thirty eight disk haikus int",
+        "Fireless story grows"
+      ],
+      "passed": true,
+      "prompt": "disk pressure",
+      "source": "artifacts/local-haiku/ngram/dev/samples.jsonl",
+      "warnings": []
+    }
+  ]
+}

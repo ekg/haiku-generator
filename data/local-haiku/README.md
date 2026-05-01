@@ -39,3 +39,33 @@ language, observer/source metadata, poem boundaries, and the three line breaks
 the decoder must respect. K-mer and de Bruijn graph representations are deferred
 to a later experiment because they make prompt control and line semantics harder
 to inspect for the first baseline.
+
+Train the first learned baseline with the standard-library, CPU-only n-gram
+trainer:
+
+```bash
+python3 scripts/train_local_haiku_ngram.py \
+  --dataset data/local-haiku/dataset.jsonl \
+  --order 4 \
+  --out artifacts/local-haiku/ngram/dev/model.json.gz \
+  --metrics artifacts/local-haiku/ngram/dev/metrics.json
+```
+
+The trainer filters to `split == "train"` for transition counts, stores learned
+character/control-token n-gram counts in a gzipped JSON artifact, and reports
+development-set negative log likelihood/perplexity when a dev split is present.
+It uses add-alpha smoothed backoff and has no GPU, cloud API, or non-standard
+runtime dependency.
+
+Generate one constrained three-line candidate locally with:
+
+```bash
+python3 scripts/generate_local_haiku.py \
+  --model artifacts/local-haiku/ngram/dev/model.json.gz \
+  --prompt "disk pressure" \
+  --seed 42
+```
+
+The decoder builds a prompt/observer control-token prefix, samples from learned
+transition counts, constrains line markers to `<L1>`, `<L2>`, `<L3>`, `<END>`,
+and retries candidates that exactly match a training poem or repeat full lines.
