@@ -1,0 +1,43 @@
+Local haiku ML environment probe
+================================
+Classification: cpu
+CPU n-gram baseline ready: yes
+CPU n-gram training requirement: must work even when GPU acceleration is absent
+
+System
+- OS: Linux 6.17.0-22-generic (x86_64)
+- Python: 3.12.3 at /usr/bin/python3
+- CPU: x86_64; logical cores=16
+- RAM: 93.6 GiB
+- Available RAM: 81.1 GiB
+
+Required baseline dependencies
+- python>=3.10
+- standard-library
+
+Optional acceleration dependencies
+- torch with ROCm/HIP for the GRU/LSTM follow-up
+- onnxruntime-rocm for ONNX ROCm experiments
+- llama.cpp/llama-cpp-python with Vulkan for llama-vulkan experiments
+
+Python ML libraries
+- numpy: installed (2.3.2)
+- torch: not installed
+- onnxruntime: not installed
+- llama-cpp-python: not installed
+
+GPU and ROCm visibility
+- AMD GPU visible: yes
+- GPU devices: c1:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Device 1114 (rev c2)
+- /dev/kfd: present
+- /dev/dri: present
+- ROCm command visibility: no
+- HIP version: unknown
+- PyTorch ROCm usable: no; torch not installed
+- ONNX Runtime providers: unknown/not installed
+- Vulkan visible: yes
+
+Actionable next steps
+- Use CPU for the first n-gram baseline; GPU support is optional and must not block training.
+- ROCm tools/runtime were not visible; install/configure ROCm manually before trying PyTorch ROCm.
+- PyTorch is not installed; defer it until the GRU/LSTM follow-up needs it.

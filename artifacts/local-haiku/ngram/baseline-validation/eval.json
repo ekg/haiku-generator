@@ -1,0 +1,423 @@
+{
+  "metrics": {
+    "failed_count": 3,
+    "failure_counts": {
+      "prompt_topic_overlap": 3
+    },
+    "pass_rate": 0.6666666666666666,
+    "passed_count": 6,
+    "sample_count": 9,
+    "topic_overlap": {
+      "fail_count": 3,
+      "pass_count": 6,
+      "prompted_count": 9
+    },
+    "warning_counts": {
+      "syllable_proxy": 8
+    }
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          6,
+          6,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          27,
+          17,
+          27
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.11811023622047244,
+        "prompt_keywords": [
+          "climate",
+          "crossing",
+          "report",
+          "wire."
+        ],
+        "topic_matches": {
+          "buckets": [],
+          "keywords": []
+        }
+      },
+      "failures": [
+        "prompt_topic_overlap"
+      ],
+      "id": "samples-1",
+      "lines": [
+        "Pack is ver space load ave.",
+        "A haiku disk used",
+        "One threen meeting consumes"
+      ],
+      "passed": false,
+      "prompt": "Write a haiku about a climate report crossing the wire.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          3,
+          11,
+          4
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          11,
+          44,
+          16
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.17757009345794392,
+        "prompt_keywords": [
+          "build",
+          "cache",
+          "files.",
+          "local",
+          "serving"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "machine"
+          ],
+          "keywords": [
+            "local"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-2",
+      "lines": [
+        "Local cloud",
+        "Firefox conds networkgraph scrip tabs backet",
+        "Ninetwo dateway."
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about a local build cache serving files.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          9,
+          10,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          32,
+          44,
+          23
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.057692307692307696,
+        "nearest_train_similarity": 0.17518248175182483,
+        "prompt_keywords": [
+          "local",
+          "mentioned",
+          "outage",
+          "page.",
+          "status"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "machine"
+          ],
+          "keywords": [
+            "local"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-3",
+      "lines": [
+        "Local IP one percent five mill n",
+        "fifty-three point tworkgraph keeps its awake",
+        "sixty-four daemory flow"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about a local outage mentioned on a status page.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          5,
+          7,
+          11
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          18,
+          27,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.05970149253731343,
+        "nearest_train_similarity": 0.13821138211382114,
+        "prompt_keywords": [
+          "process",
+          "quiet."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "samples-4",
+      "lines": [
+        "Process zero eight",
+        "Firection logs load one now",
+        "firefox compilesysteady nine fou"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about a process quiet.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          3,
+          12,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          10,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.09815950920245399,
+        "nearest_train_similarity": 0.18699186991869918,
+        "prompt_keywords": [
+          "after",
+          "build.",
+          "directory",
+          "long",
+          "temp"
+        ],
+        "topic_matches": {
+          "buckets": [],
+          "keywords": []
+        }
+      },
+      "failures": [
+        "prompt_topic_overlap"
+      ],
+      "id": "samples-5",
+      "lines": [
+        "wg tui hum",
+        "A forty-three point on one terage come sixty",
+        "Through filesses whispeaks are j"
+      ],
+      "passed": false,
+      "prompt": "Write a haiku about a temp directory after a long build.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0625,
+        "estimated_syllables": [
+          8,
+          10,
+          4
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          32,
+          44,
+          11
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.034482758620689655,
+        "nearest_train_similarity": 0.2109375,
+        "prompt_keywords": [
+          "cicadas",
+          "outside",
+          "run.",
+          "tests",
+          "while"
+        ],
+        "topic_matches": {
+          "buckets": [],
+          "keywords": []
+        }
+      },
+      "failures": [
+        "prompt_topic_overlap"
+      ],
+      "id": "samples-6",
+      "lines": [
+        "Claude and zoom memon haiku lowl",
+        "In throm and climbs load compacks open point",
+        "Memory full"
+      ],
+      "passed": false,
+      "prompt": "Write a haiku about cicadas outside while tests run.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.11111111111111116,
+        "estimated_syllables": [
+          7,
+          10,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          28,
+          43,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.20253164556962025,
+        "nearest_train_similarity": 0.17687074829931973,
+        "prompt_keywords": [
+          "localhost",
+          "logs",
+          "scrolling",
+          "terminal."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "samples-7",
+      "lines": [
+        "Latency twent tworkgraph che",
+        "Load climbs like now fifty-three percent of",
+        "Three point of its grow growing"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost logs scrolling in a terminal.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          9,
+          15,
+          11
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          32,
+          44,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.042328042328042326,
+        "nearest_train_similarity": 0.12025316455696203,
+        "prompt_keywords": [
+          "crossing",
+          "interface.",
+          "loopback",
+          "packets"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "samples-8",
+      "lines": [
+        "Latency four fox hundred twent o",
+        "Haiku filliseconnectory story holder's DNS r",
+        "Memory vast only chan gigabytes"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about packets crossing the loopback interface.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          9,
+          12,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "line_chars": [
+          28,
+          43,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.07368421052631578,
+        "nearest_train_similarity": 0.10559006211180125,
+        "prompt_keywords": [
+          "nearby",
+          "ping",
+          "replies",
+          "router."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "samples-9",
+      "lines": [
+        "Latency free megabytes grows",
+        "Four processes undred gigs awake hums a the",
+        "Memon loads nav straffic flicks"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about ping replies from a nearby router.",
+      "source": "artifacts/local-haiku/ngram/baseline-validation/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    }
+  ]
+}
