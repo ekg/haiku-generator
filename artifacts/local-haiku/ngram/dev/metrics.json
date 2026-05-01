@@ -13,5 +13,6 @@
   "train_example_count": 1919,
   "train_poem_hash_count": 2009,
   "transition_context_count": 6213,
-  "vocabulary_size": 87
+  "vocabulary_size": 87,
+  "word_vocabulary_size": 1433
 }

@@ -10,6 +10,8 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from local_haiku_ngram import (  # noqa: E402
+    L1_TOKEN,
+    _allowed_tokens,
     generate_haiku,
     generate_main,
     load_model,
@@ -162,3 +164,45 @@ def test_tiny_fixture_falls_back_to_smaller_effective_order(tmp_path: Path):
 
     assert model.effective_order < 200
     assert metrics["effective_order"] == model.effective_order
+
+
+def test_word_boundary_decoder_blocks_spliced_word_fragments(tmp_path: Path):
+    dataset = tmp_path / "dataset.jsonl"
+    records = [
+        {
+            "id": "train-process-1",
+            "language": "en",
+            "observer": "process",
+            "provenance": "repo-local",
+            "split": "train",
+            "lines": ["Compile steady", "Process logs answer now", "Memory rests softly"],
+            "text": "Compile steady\nProcess logs answer now\nMemory rests softly",
+        },
+        {
+            "id": "train-process-2",
+            "language": "en",
+            "observer": "process",
+            "provenance": "repo-local",
+            "split": "train",
+            "lines": ["System steady", "Compile tasks at dawn", "Local shells answer"],
+            "text": "System steady\nCompile tasks at dawn\nLocal shells answer",
+        },
+    ]
+    with dataset.open("w", encoding="utf-8") as handle:
+        for record in records:
+            handle.write(json.dumps(record, sort_keys=True))
+            handle.write("\n")
+
+    model, metrics = train_model(dataset, order=4)
+    allowed_after_complete_word = _allowed_tokens(model, [L1_TOKEN, *list("Compile")], 0, len("Compile"))
+    allowed_mid_word = _allowed_tokens(model, [L1_TOKEN, *list("Compile stea")], 0, len("Compile stea"))
+
+    assert metrics["word_vocabulary_size"] >= 8
+    assert " " in allowed_after_complete_word
+    assert "s" not in allowed_after_complete_word
+    assert "d" in allowed_mid_word
+    assert " " not in allowed_mid_word
+    assert rejection_reason(
+        model,
+        "Compile compilesysteady\nProcess logs answer now\nMemory rests softly",
+    ) == "unknown_word_fragment"

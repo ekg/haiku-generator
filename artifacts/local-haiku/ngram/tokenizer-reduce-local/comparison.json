@@ -1,0 +1,99 @@
+{
+  "format": "tokenizer-reduce-local-comparison-v1",
+  "model": "artifacts/local-haiku/ngram/dev/model.json.gz",
+  "sets": {
+    "after": {
+      "sample_count": 5,
+      "samples": [
+        {
+          "prompt": "disk pressure",
+          "unknown_word_fragment_count": 0,
+          "unknown_word_fragments": []
+        },
+        {
+          "prompt": "localhost latency",
+          "unknown_word_fragment_count": 0,
+          "unknown_word_fragments": []
+        },
+        {
+          "prompt": "process memory",
+          "unknown_word_fragment_count": 0,
+          "unknown_word_fragments": []
+        },
+        {
+          "prompt": "moon over local logs",
+          "unknown_word_fragment_count": 0,
+          "unknown_word_fragments": []
+        },
+        {
+          "prompt": "root filesystem",
+          "unknown_word_fragment_count": 0,
+          "unknown_word_fragments": []
+        }
+      ],
+      "unknown_word_fragment_count": 0
+    },
+    "before": {
+      "sample_count": 5,
+      "samples": [
+        {
+          "prompt": "disk pressure",
+          "unknown_word_fragment_count": 5,
+          "unknown_word_fragments": [
+            "terage",
+            "conds",
+            "dev",
+            "pace",
+            "ghost."
+          ]
+        },
+        {
+          "prompt": "localhost latency",
+          "unknown_word_fragment_count": 3,
+          "unknown_word_fragments": [
+            "folds",
+            "reathen",
+            "netwo"
+          ]
+        },
+        {
+          "prompt": "process memory",
+          "unknown_word_fragment_count": 3,
+          "unknown_word_fragments": [
+            "firection",
+            "compilesysteady",
+            "fou"
+          ]
+        },
+        {
+          "prompt": "moon over local logs",
+          "unknown_word_fragment_count": 7,
+          "unknown_word_fragments": [
+            "spack",
+            "serverabytes",
+            "porty",
+            "mill",
+            "homes",
+            "ei",
+            "statency"
+          ]
+        },
+        {
+          "prompt": "root filesystem",
+          "unknown_word_fragment_count": 7,
+          "unknown_word_fragments": [
+            "aves",
+            "fr",
+            "millisturn",
+            "usagenome",
+            "terab",
+            "memon",
+            "wlp192.156"
+          ]
+        }
+      ],
+      "unknown_word_fragment_count": 25
+    }
+  },
+  "word_vocabulary_size": 1433
+}

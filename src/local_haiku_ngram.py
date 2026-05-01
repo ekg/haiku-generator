@@ -35,6 +35,7 @@ DEFAULT_ORDER = 4
 DEFAULT_ALPHA = 0.05
 DEFAULT_MAX_LINE_CHARS = (32, 44, 32)
 DEFAULT_MIN_LINE_CHARS = (8, 12, 8)
+WORD_PATTERN = re.compile(r"[A-Za-z0-9_./:%']+")
 PROMPT_TOPIC_ANCHORS = (
     (
         {"localhost", "latency", "loopback", "packet", "packets", "ping", "network"},
@@ -65,6 +66,7 @@ class NGramModel:
     alpha: float
     counts: dict[int, dict[tuple[str, ...], Counter[str]]]
     vocabulary: tuple[str, ...]
+    word_vocabulary: tuple[str, ...]
     train_poem_hashes: frozenset[str]
     train_poem_count: int
     metadata: dict[str, object]
@@ -96,6 +98,7 @@ def train_model(
     effective_order = min(order, max(1, longest_stream))
     counts = _count_streams(train_streams, effective_order)
     vocabulary = tuple(sorted({token for stream in train_streams for token in stream}, key=_token_sort_key))
+    word_vocabulary = _word_vocabulary_from_streams(train_streams)
 
     train_poems = [
         str(record.get("text") or "\n".join(str(line) for line in record.get("lines", [])))
@@ -111,6 +114,7 @@ def train_model(
         alpha=alpha,
         counts=counts,
         vocabulary=vocabulary,
+        word_vocabulary=word_vocabulary,
         train_poem_hashes=train_poem_hashes,
         train_poem_count=len(train_poem_hashes),
         metadata={
@@ -130,6 +134,7 @@ def train_model(
         "train_example_count": len(train_build.examples),
         "skipped_invalid_train_count": train_build.skipped_invalid_count,
         "vocabulary_size": len(vocabulary),
+        "word_vocabulary_size": len(word_vocabulary),
         "transition_context_count": sum(len(contexts) for contexts in counts.values()),
         "train_poem_hash_count": len(train_poem_hashes),
         **dev_metrics,
@@ -154,7 +159,7 @@ def generate_haiku(
             decoded = decode_tokens(tokens)
         except ValueError:
             continue
-        text = decoded.text
+        text = "\n".join(line.strip() for line in decoded.lines)
         rejection = rejection_reason(model, text)
         if rejection is None:
             rejection = _prompt_rejection_reason(prompt, text)
@@ -178,6 +183,10 @@ def rejection_reason(model: NGramModel, text: str) -> str | None:
     if len(set(line.casefold() for line in lines)) != 3:
         return "repeated_full_line"
     words = re.findall(r"[a-z0-9_./:%']+", " ".join(lines).casefold())
+    if model.word_vocabulary:
+        learned_words = {word.casefold() for word in model.word_vocabulary}
+        if any(word not in learned_words for word in words):
+            return "unknown_word_fragment"
     phrases = [tuple(words[index : index + 3]) for index in range(0, max(0, len(words) - 2))]
     if len(phrases) != len(set(phrases)):
         return "repeated_phrase"
@@ -198,6 +207,7 @@ def save_model(model: NGramModel, path: str | Path) -> None:
         "effective_order": model.effective_order,
         "alpha": model.alpha,
         "vocabulary": list(model.vocabulary),
+        "word_vocabulary": list(model.word_vocabulary),
         "train_poem_hashes": sorted(model.train_poem_hashes),
         "train_poem_count": model.train_poem_count,
         "metadata": model.metadata,
@@ -233,6 +243,7 @@ def load_model(path: str | Path) -> NGramModel:
         alpha=float(payload["alpha"]),
         counts=counts,
         vocabulary=tuple(payload["vocabulary"]),
+        word_vocabulary=tuple(payload.get("word_vocabulary", ())),
         train_poem_hashes=frozenset(payload.get("train_poem_hashes", [])),
         train_poem_count=int(payload.get("train_poem_count", 0)),
         metadata=dict(payload.get("metadata", {})),
@@ -395,7 +406,7 @@ def _generate_tokens(
     line_chars = [len(anchor), 0, 0]
 
     for _ in range(sum(DEFAULT_MAX_LINE_CHARS) + 12):
-        allowed = _allowed_tokens(model, line_index, line_chars[line_index])
+        allowed = _allowed_tokens(model, tokens, line_index, line_chars[line_index])
         token = _sample_next(model, tokens, allowed, rng)
         tokens.append(token)
         if token in {L2_TOKEN, L3_TOKEN, END_TOKEN}:
@@ -413,20 +424,84 @@ def _generate_tokens(
     return tokens
 
 
-def _allowed_tokens(model: NGramModel, line_index: int, current_length: int) -> set[str]:
+def _allowed_tokens(
+    model: NGramModel,
+    tokens: Sequence[str],
+    line_index: int,
+    current_length: int,
+) -> set[str]:
     boundary = (L2_TOKEN, L3_TOKEN, END_TOKEN)[line_index]
     min_len = DEFAULT_MIN_LINE_CHARS[line_index]
     max_len = DEFAULT_MAX_LINE_CHARS[line_index]
-    allowed = {
+    char_tokens = {
         token
         for token in model.vocabulary
         if token not in CONTROL_TOKENS and not _is_metadata_token(token) and len(token) == 1 and token != "\n"
     }
-    if current_length >= min_len:
+
+    allowed = _word_boundary_allowed_tokens(char_tokens, model.word_vocabulary, tokens)
+    if current_length >= min_len and _can_end_line_at_word_boundary(tokens, model.word_vocabulary):
         allowed.add(boundary)
     if current_length >= max_len:
         return {boundary}
+    return allowed or char_tokens
+
+
+def _word_boundary_allowed_tokens(
+    char_tokens: set[str], word_vocabulary: Sequence[str], tokens: Sequence[str]
+) -> set[str]:
+    """Constrain character sampling to prefixes of words seen in training."""
+    if not word_vocabulary:
+        return set(char_tokens)
+
+    fragment = _current_word_fragment(tokens)
+    fragment_key = fragment.casefold()
+    complete_words = {word.casefold() for word in word_vocabulary}
+
+    if not fragment:
+        return {
+            token
+            for token in char_tokens
+            if _is_word_char(token) and any(word.startswith(token.casefold()) for word in complete_words)
+        }
+
+    allowed: set[str] = {
+        token
+        for token in char_tokens
+        if _is_word_char(token)
+        and any(word.startswith((fragment + token).casefold()) for word in complete_words)
+    }
+    if fragment_key in complete_words:
+        allowed.update(token for token in char_tokens if _is_word_separator(token))
     return allowed
+
+
+def _can_end_line_at_word_boundary(tokens: Sequence[str], word_vocabulary: Sequence[str]) -> bool:
+    if not tokens:
+        return False
+    fragment = _current_word_fragment(tokens)
+    if fragment:
+        return not word_vocabulary or fragment.casefold() in {word.casefold() for word in word_vocabulary}
+    return bool(tokens[-1].strip()) and not _is_word_char(tokens[-1])
+
+
+def _current_word_fragment(tokens: Sequence[str]) -> str:
+    chars: list[str] = []
+    for token in reversed(tokens):
+        if token in {L1_TOKEN, L2_TOKEN, L3_TOKEN}:
+            break
+        if len(token) != 1 or not _is_word_char(token):
+            break
+        chars.append(token)
+    return "".join(reversed(chars))
+
+
+def _is_word_char(token: str) -> bool:
+    return bool(WORD_PATTERN.fullmatch(token))
+
+
+def _is_word_separator(token: str) -> bool:
+    return len(token) == 1 and not _is_word_char(token) and not token.isspace() or token == " "
 
 
 def _sample_next(
@@ -464,6 +539,17 @@ def _sample_next(
         if running >= threshold:
             return token
     return next(reversed(sorted(weights)))
+
+
+def _word_vocabulary_from_streams(streams: Sequence[Sequence[str]]) -> tuple[str, ...]:
+    words: set[str] = set()
+    for stream in streams:
+        try:
+            decoded = decode_tokens(stream)
+        except ValueError:
+            continue
+        words.update(word.casefold() for word in WORD_PATTERN.findall(decoded.text))
+    return tuple(sorted(words))
 
 
 def _observer_from_prompt(prompt: str) -> str:
