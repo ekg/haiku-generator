@@ -1,0 +1,74 @@
+{
+  "metrics": {
+    "failed_count": 0,
+    "failure_counts": {},
+    "lexical_coherence": {
+      "artifact_marker_count": 0,
+      "fail_count": 0,
+      "fused_fragment_count": 0,
+      "pass_count": 1
+    },
+    "pass_rate": 1.0,
+    "passed_count": 1,
+    "sample_count": 1,
+    "topic_overlap": {
+      "fail_count": 0,
+      "pass_count": 1,
+      "prompted_count": 1
+    },
+    "warning_counts": {
+      "syllable_proxy": 1
+    }
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.09090909090909094,
+        "estimated_syllables": [
+          8,
+          3,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 11
+        },
+        "line_chars": [
+          25,
+          12,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.1875,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "samples-1",
+      "lines": [
+        "Latency free percent used",
+        "Haikus wide.",
+        "Tailscale just 12.156 point used"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "artifacts/local-haiku/ngram/current/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    }
+  ]
+}

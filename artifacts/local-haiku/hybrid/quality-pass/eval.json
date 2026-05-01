@@ -1,0 +1,1829 @@
+{
+  "metrics": {
+    "failed_count": 0,
+    "failure_counts": {},
+    "lexical_coherence": {
+      "artifact_marker_count": 0,
+      "fail_count": 0,
+      "fused_fragment_count": 0,
+      "pass_count": 36
+    },
+    "pass_rate": 1.0,
+    "passed_count": 36,
+    "sample_count": 36,
+    "topic_overlap": {
+      "fail_count": 0,
+      "pass_count": 36,
+      "prompted_count": 36
+    },
+    "warning_counts": {
+      "novelty_near_duplicate": 1,
+      "syllable_proxy": 31
+    }
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.06666666666666665,
+        "estimated_syllables": [
+          8,
+          8,
+          6
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 15
+        },
+        "line_chars": [
+          32,
+          24,
+          29
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.17647058823529413,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "ngram_localhost-latency_101",
+      "lines": [
+        "Latency to free logs three point",
+        "Autohaiku linking is six",
+        "Ping daemon space logs groans"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.34782608695652173,
+        "estimated_syllables": [
+          10,
+          11,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.08695652173913043,
+          "token_count": 23
+        },
+        "line_chars": [
+          32,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.05161290322580645,
+        "nearest_train_similarity": 0.1927710843373494,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "ngram_localhost-latency_202",
+      "lines": [
+        "Latency of disk home and sixty-s",
+        "In to eight-eight eight two point in sixty-t",
+        "packets to eight disk disk haiku"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          8,
+          11,
+          1
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.07142857142857142,
+          "token_count": 14
+        },
+        "line_chars": [
+          31,
+          44,
+          8
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.045454545454545456,
+        "nearest_train_similarity": 0.14634146341463414,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "ngram_disk-pressure_101",
+      "lines": [
+        "Disk at sixty-four daemon route",
+        "Used three gently waiting holds touched file",
+        "wlp192s0"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.06666666666666665,
+        "estimated_syllables": [
+          11,
+          4,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.06666666666666667,
+          "token_count": 15
+        },
+        "line_chars": [
+          32,
+          22,
+          27
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.06711409395973154,
+        "nearest_train_similarity": 0.175,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "ngram_disk-pressure_202",
+      "lines": [
+        "Disk sixty-ninety-two Firefox fi",
+        "Ping holds root eight.",
+        "Two memory still his softly"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          6,
+          4,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 9
+        },
+        "line_chars": [
+          23,
+          12,
+          28
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.06153846153846154,
+        "nearest_train_similarity": 0.21296296296296297,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "ngram_process-memory_101",
+      "lines": [
+        "Process devour ponders,",
+        "Firefox tabs",
+        "sixty point full,undisturbed"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          4,
+          12,
+          9
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 17
+        },
+        "line_chars": [
+          17,
+          44,
+          30
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.04938271604938271,
+        "nearest_train_similarity": 0.16901408450704225,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "ngram_process-memory_202",
+      "lines": [
+        "Process slow sigh",
+        "fifty-four millisecond drive of space load a",
+        "Sixty-two new one percent used"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.07692307692307687,
+        "estimated_syllables": [
+          8,
+          6,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.15384615384615385,
+          "token_count": 13
+        },
+        "line_chars": [
+          32,
+          17,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.02631578947368421,
+        "nearest_train_similarity": 0.047058823529411764,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "neural_localhost-latency_101",
+      "lines": [
+        "Latency mawtioaaeoaw a reieofage",
+        "sootfegfo ile o l",
+        "a 7opeoiitetoo   euts orss-Rsrt"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          10,
+          7,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.25,
+          "token_count": 16
+        },
+        "line_chars": [
+          32,
+          30,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.025,
+        "nearest_train_similarity": 0.041237113402061855,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "neural_localhost-latency_202",
+      "lines": [
+        "Latency rofaowgs kainsite ipo cc",
+        "td ttr dZt  asayeoaetyce aeime",
+        "leewn vwex tFtoweou Yl,  eoin  l"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0714285714285714,
+        "estimated_syllables": [
+          7,
+          5,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.21428571428571427,
+          "token_count": 14
+        },
+        "line_chars": [
+          32,
+          14,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.7529411764705882,
+        "nearest_train_similarity": 0.015384615384615385,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "neural_disk-pressure_101",
+      "lines": [
+        "Disk mawtioaaeoaw a reieofage so",
+        "tfegfo ile o l",
+        "a 7opeoiitetoo   euts orss-Rsrt"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          8,
+          5,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.13333333333333333,
+          "token_count": 15
+        },
+        "line_chars": [
+          32,
+          27,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.6320754716981132,
+        "nearest_train_similarity": 0.02027027027027027,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "neural_disk-pressure_202",
+      "lines": [
+        "Disk rogaowgs kainsite ipo ccitd",
+        "ttr dZt  bsayeoaetyce aeime",
+        "leewn vwex tFtoweou Yl,  eoin  l"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.07692307692307687,
+        "estimated_syllables": [
+          7,
+          6,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.15384615384615385,
+          "token_count": 13
+        },
+        "line_chars": [
+          32,
+          17,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.8313253012048193,
+        "nearest_train_similarity": 0.036231884057971016,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "neural_process-memory_101",
+      "lines": [
+        "Process mawtioaaeoaw a reieofage",
+        "sootfegfo ile o l",
+        "a 7opeoiitetoo   euts orss-Rsrt"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          9,
+          7,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.25,
+          "token_count": 16
+        },
+        "line_chars": [
+          32,
+          30,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.8526315789473684,
+        "nearest_train_similarity": 0.032467532467532464,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "neural_process-memory_202",
+      "lines": [
+        "Process rofaowgs kainsite ipo cc",
+        "td ttr dZt  asayeoaetyce aeime",
+        "leewn vwex tFtoweou Yl,  eoin  l"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy",
+        "novelty_near_duplicate"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.09090909090909094,
+        "estimated_syllables": [
+          8,
+          5,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 11
+        },
+        "line_chars": [
+          32,
+          19,
+          11
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.07751937984496124,
+        "nearest_train_similarity": 0.13333333333333333,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_localhost-latency_101",
+      "lines": [
+        "Latency floats the circuits load",
+        "Six free space used",
+        "Inodes used"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          7,
+          6,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 14
+        },
+        "line_chars": [
+          32,
+          22,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.11564625850340136,
+        "nearest_train_similarity": 0.30392156862745096,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_localhost-latency_202",
+      "lines": [
+        "Latency load climbs bright eight",
+        "milliseconds to eight.",
+        "RAM still free point forty-three"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.11764705882352944,
+        "estimated_syllables": [
+          7,
+          10,
+          4
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 17
+        },
+        "line_chars": [
+          31,
+          43,
+          16
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.20149253731343283,
+        "nearest_train_similarity": 0.2,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_disk-pressure_101",
+      "lines": [
+        "Disk is three poems in the days",
+        "thirty-three point seven dot eighteen point",
+        "Forty still free"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          8,
+          7,
+          3
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 11
+        },
+        "line_chars": [
+          31,
+          22,
+          11
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.07857142857142857,
+        "nearest_train_similarity": 0.13675213675213677,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_disk-pressure_202",
+      "lines": [
+        "Disk holds seven processes free",
+        "twenty the rises saved",
+        "One percent"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          5,
+          6,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.07692307692307693,
+          "token_count": 13
+        },
+        "line_chars": [
+          20,
+          25,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.12686567164179105,
+        "nearest_train_similarity": 0.20535714285714285,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_process-memory_101",
+      "lines": [
+        "Process silent full.",
+        "Thirty-three percent full",
+        "New load climbs at sixteen point"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.052631578947368474,
+        "estimated_syllables": [
+          7,
+          7,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 19
+        },
+        "line_chars": [
+          32,
+          32,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.07453416149068323,
+        "nearest_train_similarity": 0.12030075187969924,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.0_temp0.9_top8_process-memory_202",
+      "lines": [
+        "Process its free file is strains",
+        "The root eight point two persist",
+        "four days of verses from in two-"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.07692307692307687,
+        "estimated_syllables": [
+          5,
+          7,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 13
+        },
+        "line_chars": [
+          16,
+          29,
+          23
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.140625,
+        "nearest_train_similarity": 0.3333333333333333,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_localhost-latency_101",
+      "lines": [
+        "Latency to eight",
+        "the root dot disk sixty-three",
+        "Root service holds free"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": []
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.15000000000000002,
+        "estimated_syllables": [
+          9,
+          12,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 20
+        },
+        "line_chars": [
+          28,
+          44,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.12142857142857143,
+        "nearest_train_similarity": 0.14393939393939395,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_localhost-latency_202",
+      "lines": [
+        "Latency to in megs awake now",
+        "Forty-eight eight memory six hundred two day",
+        "Two server graph the root eight"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.16666666666666663,
+        "estimated_syllables": [
+          7,
+          10,
+          4
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 18
+        },
+        "line_chars": [
+          31,
+          43,
+          18
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.15833333333333333,
+        "nearest_train_similarity": 0.1981981981981982,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_disk-pressure_101",
+      "lines": [
+        "Disk sixty-three point two days",
+        "One ter three poetic flow still sixty-three",
+        "To eight drive sea"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.15000000000000002,
+        "estimated_syllables": [
+          8,
+          9,
+          10
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.1,
+          "token_count": 20
+        },
+        "line_chars": [
+          32,
+          40,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.21374045801526717,
+        "nearest_train_similarity": 0.226890756302521,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_disk-pressure_202",
+      "lines": [
+        "Disk sixty-three six hums its lo",
+        "percent full daemon the load climbs high",
+        "Memory sixty-three percent two m"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.17647058823529416,
+        "estimated_syllables": [
+          10,
+          6,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 17
+        },
+        "line_chars": [
+          31,
+          25,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.1417910447761194,
+        "nearest_train_similarity": 0.2743362831858407,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_process-memory_101",
+      "lines": [
+        "Process one terabytes used four",
+        "to three point side used,",
+        "over the root eight dot dot dot"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.11111111111111116,
+        "estimated_syllables": [
+          4,
+          12,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 18
+        },
+        "line_chars": [
+          16,
+          44,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.14925373134328357,
+        "nearest_train_similarity": 0.17829457364341086,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.3_temp0.75_top8_process-memory_202",
+      "lines": [
+        "Process like now",
+        "A hums six four percent on sixty-two percent",
+        "Sixteen point of uptime,the six"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.10526315789473684,
+        "estimated_syllables": [
+          10,
+          10,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 19
+        },
+        "line_chars": [
+          31,
+          43,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.2,
+        "nearest_train_similarity": 0.20161290322580644,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_localhost-latency_101",
+      "lines": [
+        "Latency the half memory is fill",
+        "to eight eight disk sixty-three percent one",
+        "one milliseconds runs six heats"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.07692307692307687,
+        "estimated_syllables": [
+          9,
+          4,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 13
+        },
+        "line_chars": [
+          32,
+          17,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.12598425196850394,
+        "nearest_train_similarity": 0.2033898305084746,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_localhost-latency_202",
+      "lines": [
+        "Latency task sixteen cores steep",
+        "Work sixteen msec",
+        "firefox tabs three percent nine"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          4,
+          13,
+          5
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.07692307692307693,
+          "token_count": 13
+        },
+        "line_chars": [
+          15,
+          43,
+          21
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.1056338028169014,
+        "nearest_train_similarity": 0.1796875,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_disk-pressure_101",
+      "lines": [
+        "Disk at sixteen",
+        "established nine terabyte drive memory home",
+        "Sixty-four peace logs"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          6,
+          10,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 17
+        },
+        "line_chars": [
+          26,
+          44,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.10909090909090909,
+        "nearest_train_similarity": 0.11940298507462686,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_disk-pressure_202",
+      "lines": [
+        "Disk sixty-three sigh lost",
+        "watch servers space whispers the and whisper",
+        "swap sleeps its wlp192s0 inodes"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          9,
+          13,
+          3
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 14
+        },
+        "line_chars": [
+          32,
+          44,
+          14
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.11627906976744186,
+        "nearest_train_similarity": 0.15555555555555556,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_process-memory_101",
+      "lines": [
+        "Process interface hundred stores",
+        "firefox and the log grows interfaces service",
+        "Root dot eight"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.11764705882352944,
+        "estimated_syllables": [
+          8,
+          10,
+          9
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 17
+        },
+        "line_chars": [
+          32,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.1118421052631579,
+        "nearest_train_similarity": 0.2198581560283688,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w0.6_temp0.9_top8_process-memory_202",
+      "lines": [
+        "Process whisper holds softly the",
+        "Load climbs there terminals deep tabs design",
+        "Load average climbs thirty forty"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          11,
+          9,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.05555555555555555,
+          "token_count": 18
+        },
+        "line_chars": [
+          32,
+          30,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.11258278145695365,
+        "nearest_train_similarity": 0.16176470588235295,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_localhost-latency_101",
+      "lines": [
+        "Latency the left at only to tera",
+        "thirty point one terabyte used",
+        "sixteen core logs there sings in"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.11111111111111116,
+        "estimated_syllables": [
+          8,
+          14,
+          7
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.05555555555555555,
+          "token_count": 18
+        },
+        "line_chars": [
+          32,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.11864406779661017,
+        "nearest_train_similarity": 0.21428571428571427,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_localhost-latency_202",
+      "lines": [
+        "Latency free percent eight eight",
+        "tailscale terabytes of sixty-seven meeting t",
+        "sixteen poems are tasks of spins"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.10526315789473684,
+        "estimated_syllables": [
+          9,
+          12,
+          8
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.05263157894736842,
+          "token_count": 19
+        },
+        "line_chars": [
+          32,
+          43,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.2108843537414966,
+        "nearest_train_similarity": 0.24166666666666667,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_disk-pressure_101",
+      "lines": [
+        "Disk sixteen millisecond reads t",
+        "one tera used forty mostly three point full",
+        "thirty tiny to eight eight eight"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.26315789473684215,
+        "estimated_syllables": [
+          8,
+          10,
+          10
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 19
+        },
+        "line_chars": [
+          32,
+          44,
+          31
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.14375,
+        "nearest_train_similarity": 0.15441176470588236,
+        "prompt_keywords": [
+          "disk",
+          "pressure."
+        ],
+        "topic_matches": {
+          "buckets": [
+            "storage"
+          ],
+          "keywords": [
+            "disk"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_disk-pressure_202",
+      "lines": [
+        "Disk six hearts one terabyte one",
+        "tailscale and through thirty to to eight ter",
+        "one terabyte used nine terabyte"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about disk pressure.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.0,
+        "estimated_syllables": [
+          10,
+          11,
+          9
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.0,
+          "token_count": 20
+        },
+        "line_chars": [
+          32,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.12790697674418605,
+        "nearest_train_similarity": 0.16901408450704225,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_process-memory_101",
+      "lines": [
+        "Process of haiku files a heatmap",
+        "The heat seen hold line terabyte on six tail",
+        "Gigabyte used sixteen megs reads"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    },
+    {
+      "details": {
+        "duplicate_token_ratio": 0.35,
+        "estimated_syllables": [
+          7,
+          13,
+          6
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": true,
+          "short_fragment_ratio": 0.05,
+          "token_count": 20
+        },
+        "line_chars": [
+          32,
+          44,
+          32
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.2283464566929134,
+        "nearest_train_similarity": 0.20689655172413793,
+        "prompt_keywords": [
+          "memory.",
+          "process"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "compute"
+          ],
+          "keywords": [
+            "process"
+          ]
+        }
+      },
+      "failures": [],
+      "id": "hybrid_w1.0_temp0.75_top5_process-memory_202",
+      "lines": [
+        "Process still the holds to eight",
+        "thirty still the replies one terabyte used t",
+        "still the root eight eight eight"
+      ],
+      "passed": true,
+      "prompt": "Write a haiku about process memory.",
+      "source": "/home/erik/autohaiku/.wg-worktrees/agent-137/artifacts/local-haiku/hybrid/quality-pass/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    }
+  ]
+}

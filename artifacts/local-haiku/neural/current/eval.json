@@ -1,0 +1,78 @@
+{
+  "metrics": {
+    "failed_count": 1,
+    "failure_counts": {
+      "lexical_coherence": 1
+    },
+    "lexical_coherence": {
+      "artifact_marker_count": 0,
+      "fail_count": 1,
+      "fused_fragment_count": 0,
+      "pass_count": 0
+    },
+    "pass_rate": 0.0,
+    "passed_count": 0,
+    "sample_count": 1,
+    "topic_overlap": {
+      "fail_count": 0,
+      "pass_count": 1,
+      "prompted_count": 1
+    },
+    "warning_counts": {
+      "syllable_proxy": 1
+    }
+  },
+  "samples": [
+    {
+      "details": {
+        "duplicate_token_ratio": 0.125,
+        "estimated_syllables": [
+          13,
+          14,
+          3
+        ],
+        "language_token_ratio": 1.0,
+        "lexical_coherence": {
+          "artifact_markers": [],
+          "fused_fragments": [],
+          "passed": false,
+          "short_fragment_ratio": 0.625,
+          "token_count": 16
+        },
+        "line_chars": [
+          32,
+          43,
+          9
+        ],
+        "line_count": 3,
+        "nearest_prior_similarity": 0.0,
+        "nearest_train_similarity": 0.0449438202247191,
+        "prompt_keywords": [
+          "latency.",
+          "localhost"
+        ],
+        "topic_matches": {
+          "buckets": [
+            "network"
+          ],
+          "keywords": []
+        }
+      },
+      "failures": [
+        "lexical_coherence"
+      ],
+      "id": "samples-1",
+      "lines": [
+        "Latency e,o ke i g  gs anumew se",
+        "esamoel  aogemhesocmitpex fr-i orlteonmhsui",
+        "ooyseeo i"
+      ],
+      "passed": false,
+      "prompt": "Write a haiku about localhost latency.",
+      "source": "artifacts/local-haiku/neural/current/samples.jsonl",
+      "warnings": [
+        "syllable_proxy"
+      ]
+    }
+  ]
+}
