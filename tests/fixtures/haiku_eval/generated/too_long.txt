@@ -1,0 +1,3 @@
+This line keeps wandering far beyond the accepted checker limit for a haiku line
+The middle line also wanders far beyond the length proxy that this smoke checker allows
+Short dawn returns
