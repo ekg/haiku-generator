@@ -1,15 +1,15 @@
 {
   "models": {
-    "hybrid_w0.0_temp0.9_top8": {
-      "attempt_total": 18,
+    "hybrid_w0.0_temp0.9_top8_pool2": {
+      "attempt_total": 21,
       "errors": 0,
       "failed": 0,
       "generated": 6,
-      "mean_attempt": 3.0,
-      "mean_quality_penalty": 1.5,
+      "mean_attempt": 3.5,
+      "mean_quality_penalty": 0.8333333333333334,
       "pass_rate": 1.0,
       "passed": 6,
-      "quality_penalty_total": 9,
+      "quality_penalty_total": 5,
       "samples": [
         {
           "diagnostics": {
@@ -23,7 +23,7 @@
             "word_count": 11
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_localhost-latency_101",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_localhost-latency_101",
           "lines": [
             "Latency floats the circuits load",
             "Six free space used",
@@ -46,7 +46,7 @@
             "word_count": 13
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_localhost-latency_202",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_localhost-latency_202",
           "lines": [
             "Latency load climbs bright eight",
             "milliseconds to eight.",
@@ -61,19 +61,19 @@
           "diagnostics": {
             "line_end_fragment_count": 0,
             "numeric_word_count": 0,
-            "quality_penalty": 3,
+            "quality_penalty": 1,
             "repeated_words": [
-              "point"
+              "memory"
             ],
-            "short_word_count": 2,
-            "word_count": 16
+            "short_word_count": 0,
+            "word_count": 10
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_disk-pressure_101",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_disk-pressure_101",
           "lines": [
-            "Disk is three poems in the days",
-            "thirty-three point seven dot eighteen point",
-            "Forty still free"
+            "Disk used",
+            "Thirty-four memory forty-four persist",
+            "Memory stripes through thinking"
           ],
           "passed": true,
           "prompt": "Write a haiku about disk pressure.",
@@ -92,7 +92,7 @@
             "word_count": 11
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_disk-pressure_202",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_disk-pressure_202",
           "lines": [
             "Disk holds seven processes free",
             "twenty the rises saved",
@@ -115,7 +115,7 @@
             "word_count": 12
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_process-memory_101",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_process-memory_101",
           "lines": [
             "Process silent full.",
             "Thirty-three percent full",
@@ -130,17 +130,17 @@
           "diagnostics": {
             "line_end_fragment_count": 0,
             "numeric_word_count": 0,
-            "quality_penalty": 3,
+            "quality_penalty": 1,
             "repeated_words": [],
-            "short_word_count": 3,
-            "word_count": 19
+            "short_word_count": 1,
+            "word_count": 12
           },
           "failures": [],
-          "id": "hybrid_w0.0_temp0.9_top8_process-memory_202",
+          "id": "hybrid_w0.0_temp0.9_top8_pool2_process-memory_202",
           "lines": [
-            "Process its free file is strains",
-            "The root eight point two persist",
-            "four days of verses from in two-"
+            "Process watches high weaves heat",
+            "Six milliseconds",
+            "to the long days along"
           ],
           "passed": true,
           "prompt": "Write a haiku about process memory.",
@@ -152,182 +152,16 @@
       ],
       "warnings": 4
     },
-    "hybrid_w0.3_temp0.75_top8": {
-      "attempt_total": 22,
+    "hybrid_w0.6_temp0.9_top8_pool2": {
+      "attempt_total": 24,
       "errors": 0,
       "failed": 0,
       "generated": 6,
-      "mean_attempt": 3.6666666666666665,
-      "mean_quality_penalty": 4.0,
+      "mean_attempt": 4.0,
+      "mean_quality_penalty": 1.1666666666666667,
       "pass_rate": 1.0,
       "passed": 6,
-      "quality_penalty_total": 24,
-      "samples": [
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 0,
-            "numeric_word_count": 0,
-            "quality_penalty": 2,
-            "repeated_words": [
-              "root"
-            ],
-            "short_word_count": 1,
-            "word_count": 12
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_localhost-latency_101",
-          "lines": [
-            "Latency to eight",
-            "the root dot disk sixty-three",
-            "Root service holds free"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about localhost latency.",
-          "seed": 101,
-          "warnings": []
-        },
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 0,
-            "numeric_word_count": 0,
-            "quality_penalty": 4,
-            "repeated_words": [
-              "eight",
-              "two"
-            ],
-            "short_word_count": 2,
-            "word_count": 19
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_localhost-latency_202",
-          "lines": [
-            "Latency to in megs awake now",
-            "Forty-eight eight memory six hundred two day",
-            "Two server graph the root eight"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about localhost latency.",
-          "seed": 202,
-          "warnings": [
-            "syllable_proxy"
-          ]
-        },
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 0,
-            "numeric_word_count": 0,
-            "quality_penalty": 2,
-            "repeated_words": [
-              "sixty-three"
-            ],
-            "short_word_count": 1,
-            "word_count": 16
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_disk-pressure_101",
-          "lines": [
-            "Disk sixty-three point two days",
-            "One ter three poetic flow still sixty-three",
-            "To eight drive sea"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about disk pressure.",
-          "seed": 101,
-          "warnings": [
-            "syllable_proxy"
-          ]
-        },
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 2,
-            "numeric_word_count": 0,
-            "quality_penalty": 8,
-            "repeated_words": [
-              "percent",
-              "sixty-three"
-            ],
-            "short_word_count": 2,
-            "word_count": 18
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_disk-pressure_202",
-          "lines": [
-            "Disk sixty-three six hums its lo",
-            "percent full daemon the load climbs high",
-            "Memory sixty-three percent two m"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about disk pressure.",
-          "seed": 202,
-          "warnings": [
-            "syllable_proxy"
-          ]
-        },
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 0,
-            "numeric_word_count": 0,
-            "quality_penalty": 3,
-            "repeated_words": [
-              "dot",
-              "used"
-            ],
-            "short_word_count": 1,
-            "word_count": 17
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_process-memory_101",
-          "lines": [
-            "Process one terabytes used four",
-            "to three point side used,",
-            "over the root eight dot dot dot"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about process memory.",
-          "seed": 101,
-          "warnings": [
-            "syllable_proxy"
-          ]
-        },
-        {
-          "diagnostics": {
-            "line_end_fragment_count": 0,
-            "numeric_word_count": 0,
-            "quality_penalty": 5,
-            "repeated_words": [
-              "percent",
-              "six"
-            ],
-            "short_word_count": 3,
-            "word_count": 17
-          },
-          "failures": [],
-          "id": "hybrid_w0.3_temp0.75_top8_process-memory_202",
-          "lines": [
-            "Process like now",
-            "A hums six four percent on sixty-two percent",
-            "Sixteen point of uptime,the six"
-          ],
-          "passed": true,
-          "prompt": "Write a haiku about process memory.",
-          "seed": 202,
-          "warnings": [
-            "syllable_proxy"
-          ]
-        }
-      ],
-      "warnings": 5
-    },
-    "hybrid_w0.6_temp0.9_top8": {
-      "attempt_total": 20,
-      "errors": 0,
-      "failed": 0,
-      "generated": 6,
-      "mean_attempt": 3.3333333333333335,
-      "mean_quality_penalty": 1.5,
-      "pass_rate": 1.0,
-      "passed": 6,
-      "quality_penalty_total": 9,
+      "quality_penalty_total": 7,
       "samples": [
         {
           "diagnostics": {
@@ -342,7 +176,7 @@
             "word_count": 18
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_localhost-latency_101",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_localhost-latency_101",
           "lines": [
             "Latency the half memory is fill",
             "to eight eight disk sixty-three percent one",
@@ -367,7 +201,7 @@
             "word_count": 13
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_localhost-latency_202",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_localhost-latency_202",
           "lines": [
             "Latency task sixteen cores steep",
             "Work sixteen msec",
@@ -390,7 +224,7 @@
             "word_count": 12
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_disk-pressure_101",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_disk-pressure_101",
           "lines": [
             "Disk at sixteen",
             "established nine terabyte drive memory home",
@@ -413,7 +247,7 @@
             "word_count": 16
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_disk-pressure_202",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_disk-pressure_202",
           "lines": [
             "Disk sixty-three sigh lost",
             "watch servers space whispers the and whisper",
@@ -436,7 +270,7 @@
             "word_count": 14
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_process-memory_101",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_process-memory_101",
           "lines": [
             "Process interface hundred stores",
             "firefox and the log grows interfaces service",
@@ -453,20 +287,17 @@
           "diagnostics": {
             "line_end_fragment_count": 0,
             "numeric_word_count": 0,
-            "quality_penalty": 2,
-            "repeated_words": [
-              "climbs",
-              "load"
-            ],
+            "quality_penalty": 0,
+            "repeated_words": [],
             "short_word_count": 0,
-            "word_count": 17
+            "word_count": 12
           },
           "failures": [],
-          "id": "hybrid_w0.6_temp0.9_top8_process-memory_202",
+          "id": "hybrid_w0.6_temp0.9_top8_pool2_process-memory_202",
           "lines": [
-            "Process whisper holds softly the",
-            "Load climbs there terminals deep tabs design",
-            "Load average climbs thirty forty"
+            "Process interface whispers steep",
+            "Work sixteen msec",
+            "firefox tabs three percent nine"
           ],
           "passed": true,
           "prompt": "Write a haiku about process memory.",
@@ -478,7 +309,7 @@
       ],
       "warnings": 6
     },
-    "hybrid_w1.0_temp0.75_top5": {
+    "hybrid_w1.0_temp0.75_top5_pool1": {
       "attempt_total": 137,
       "errors": 0,
       "failed": 0,
@@ -499,7 +330,7 @@
             "word_count": 18
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_localhost-latency_101",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_localhost-latency_101",
           "lines": [
             "Latency the left at only to tera",
             "thirty point one terabyte used",
@@ -525,7 +356,7 @@
             "word_count": 17
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_localhost-latency_202",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_localhost-latency_202",
           "lines": [
             "Latency free percent eight eight",
             "tailscale terabytes of sixty-seven meeting t",
@@ -550,7 +381,7 @@
             "word_count": 19
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_disk-pressure_101",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_disk-pressure_101",
           "lines": [
             "Disk sixteen millisecond reads t",
             "one tera used forty mostly three point full",
@@ -577,7 +408,7 @@
             "word_count": 19
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_disk-pressure_202",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_disk-pressure_202",
           "lines": [
             "Disk six hearts one terabyte one",
             "tailscale and through thirty to to eight ter",
@@ -600,7 +431,7 @@
             "word_count": 20
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_process-memory_101",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_process-memory_101",
           "lines": [
             "Process of haiku files a heatmap",
             "The heat seen hold line terabyte on six tail",
@@ -627,7 +458,7 @@
             "word_count": 20
           },
           "failures": [],
-          "id": "hybrid_w1.0_temp0.75_top5_process-memory_202",
+          "id": "hybrid_w1.0_temp0.75_top5_pool1_process-memory_202",
           "lines": [
             "Process still the holds to eight",
             "thirty still the replies one terabyte used t",

@@ -28,10 +28,9 @@ DEFAULT_PROMPTS = (
 )
 DEFAULT_SEEDS = (101, 202)
 HYBRID_CONFIGS = (
-    {"name": "hybrid_w0.0_temp0.9_top8", "neural_weight": 0.0, "temperature": 0.9, "top_k": 8},
-    {"name": "hybrid_w0.3_temp0.75_top8", "neural_weight": 0.3, "temperature": 0.75, "top_k": 8},
-    {"name": "hybrid_w0.6_temp0.9_top8", "neural_weight": 0.6, "temperature": 0.9, "top_k": 8},
-    {"name": "hybrid_w1.0_temp0.75_top5", "neural_weight": 1.0, "temperature": 0.75, "top_k": 5},
+    {"name": "hybrid_w0.0_temp0.9_top8_pool2", "neural_weight": 0.0, "temperature": 0.9, "top_k": 8, "candidate_pool": 2},
+    {"name": "hybrid_w0.6_temp0.9_top8_pool2", "neural_weight": 0.6, "temperature": 0.9, "top_k": 8, "candidate_pool": 2},
+    {"name": "hybrid_w1.0_temp0.75_top5_pool1", "neural_weight": 1.0, "temperature": 0.75, "top_k": 5, "candidate_pool": 1},
 )
 REPORT_PATH = ROOT / "reports/local-haiku-hybrid-quality-pass.md"
 
@@ -150,6 +149,7 @@ def _generate_hybrid(
                     neural_weight=float(config["neural_weight"]),
                     temperature=float(config["temperature"]),
                     top_k=int(config["top_k"]) if config["top_k"] is not None else None,
+                    candidate_pool=int(config["candidate_pool"]),
                     max_attempts=max_attempts,
                 )
                 metadata = {**metadata, "model": model_name}
@@ -328,13 +328,13 @@ def _render_report(summary: dict[str, object]) -> str:
             "",
             "- The evaluator pass rate is not discriminative in this matrix: every model passed structural checks.",
             "- The neural baseline produced character-level word salad with fragments such as `mawtioaaeoaw`, `dZt`, and repeated short tokens.",
-            "- Heavier neural reranking increased retry cost and did not reduce rough lexical artifacts.",
-            "- Graph-constrained hybrid decoding reduced the worst neural failures but still emitted awkward local-metric phrases and numeric fragments.",
+            "- Heavier neural reranking increased retry cost and did not reliably reduce rough lexical artifacts.",
+            "- Graph-first hybrid decoding with candidate selection reduced the worst neural and n-gram failures, but still emitted awkward local-metric phrases.",
             "",
             "## Suggested Defaults",
             "",
-            "- Use `neural_weight=0.0`, `temperature=0.9`, `top_k=8` for the current hybrid graph sampler when a hybrid artifact is required.",
-            "- Do not make the tiny-GRU reranker part of the default production path until it is retrained or replaced and revalidated.",
+            "- Use `neural_weight=0.0`, `temperature=0.9`, `top_k=8`, `candidate_pool=2` for the current hybrid graph sampler when a hybrid artifact is required.",
+            "- Do not use the tiny-GRU reranker as a quality-improving default until it is retrained or replaced and revalidated.",
             "",
         ]
     )
@@ -360,14 +360,13 @@ def _recommend(summary: dict[str, object]) -> tuple[str, str]:
 
     if best_penalty < ngram_penalty and best_penalty < neural_penalty:
         return (
-            "Tune further before adopting the hybrid decoder as the default.",
+            "Use graph-first hybrid defaults only; retrain before enabling neural-weighted reranking.",
             (
                 f"The best hybrid setting in this matrix was `{best_hybrid_name}` "
                 f"(mean quality penalty {best_penalty:.2f}), better than n-gram "
                 f"({ngram_penalty:.2f}) and neural ({neural_penalty:.2f}). "
-                "However, the equally strong graph-only hybrid result and the high-penalty "
-                "neural-weighted runs indicate that the tiny-GRU reranker is not yet adding "
-                "reliable quality."
+                "The graph-first result and the high-penalty neural-weighted runs indicate "
+                "that the tiny-GRU reranker is not yet adding reliable quality."
             ),
         )
 

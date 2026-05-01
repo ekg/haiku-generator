@@ -118,7 +118,7 @@ def test_hybrid_generates_valid_graph_constrained_haiku(tmp_path: Path):
     assert metadata["decoder"] == "ngram-graph-neural-rerank"
     assert metadata["neural_weight"] == 0.4
     assert metadata["accepted_candidates"] >= 1
-    assert metadata["candidate_pool"] == 4
+    assert metadata["candidate_pool"] == 2
 
 
 def test_hybrid_cli_writes_sample(tmp_path: Path, capsys):
@@ -148,7 +148,8 @@ def test_hybrid_cli_writes_sample(tmp_path: Path, capsys):
     assert len(generated.splitlines()) == 3
     assert len(sample_payload["lines"]) == 3
     assert sample_payload["metadata"]["decoder"] == "ngram-graph-neural-rerank"
-    assert sample_payload["metadata"]["candidate_pool"] == 4
+    assert sample_payload["metadata"]["top_k"] == 8
+    assert sample_payload["metadata"]["candidate_pool"] == 2
 
 
 def test_hybrid_candidate_pool_must_be_positive(tmp_path: Path):
@@ -194,6 +195,6 @@ def test_quality_pass_report_recommends_tuning_when_hybrid_beats_baselines():
 
     report = runner._render_report(summary)
 
-    assert "Tune further before adopting the hybrid decoder as the default." in report
+    assert "Use graph-first hybrid defaults only; retrain before enabling neural-weighted reranking." in report
     assert "`hybrid_w0.0_temp0.9_top8`" in report
-    assert "Do not make the tiny-GRU reranker part of the default production path" in report
+    assert "Do not use the tiny-GRU reranker as a quality-improving default" in report

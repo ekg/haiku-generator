@@ -32,9 +32,10 @@ from local_haiku_tokenizer import (
 )
 
 
-DEFAULT_NEURAL_WEIGHT = 0.6
+DEFAULT_NEURAL_WEIGHT = 0.0
 DEFAULT_TEMPERATURE = 0.9
-DEFAULT_CANDIDATE_POOL = 4
+DEFAULT_TOP_K = 8
+DEFAULT_CANDIDATE_POOL = 2
 
 
 def generate_haiku(
@@ -46,7 +47,7 @@ def generate_haiku(
     seed: int | None = None,
     neural_weight: float = DEFAULT_NEURAL_WEIGHT,
     temperature: float = DEFAULT_TEMPERATURE,
-    top_k: int | None = None,
+    top_k: int | None = DEFAULT_TOP_K,
     candidate_pool: int = DEFAULT_CANDIDATE_POOL,
     max_attempts: int = 200,
 ) -> tuple[str, dict[str, object]]:
@@ -118,7 +119,12 @@ def generate_main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, help="Deterministic random seed.")
     parser.add_argument("--neural-weight", type=float, default=DEFAULT_NEURAL_WEIGHT)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
-    parser.add_argument("--top-k", type=int, help="Limit sampling to the highest scoring graph edges.")
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=DEFAULT_TOP_K,
+        help="Limit sampling to the highest scoring graph edges.",
+    )
     parser.add_argument(
         "--candidate-pool",
         type=int,
