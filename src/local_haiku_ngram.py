@@ -35,6 +35,16 @@ DEFAULT_ORDER = 4
 DEFAULT_ALPHA = 0.05
 DEFAULT_MAX_LINE_CHARS = (32, 44, 32)
 DEFAULT_MIN_LINE_CHARS = (8, 12, 8)
+PROMPT_TOPIC_ANCHORS = (
+    (
+        {"localhost", "latency", "loopback", "packet", "packets", "ping", "network"},
+        "Latency ",
+    ),
+    ({"disk", "drive", "filesystem", "file", "bytes", "root"}, "Disk "),
+    ({"process", "cpu", "load", "memory", "thread"}, "Process "),
+    ({"local", "host", "daemon", "shell", "kernel", "log", "logs"}, "Local "),
+    ({"rain", "moon", "moss", "pine", "river", "snow", "wind", "dawn"}, "Dawn "),
+)
 CONTROL_TOKENS = {
     HAIKU_TOKEN,
     PROMPT_TOKEN,
@@ -147,6 +157,8 @@ def generate_haiku(
         text = decoded.text
         rejection = rejection_reason(model, text)
         if rejection is None:
+            rejection = _prompt_rejection_reason(prompt, text)
+        if rejection is None:
             return text, {
                 "attempt": attempt,
                 "prompt": prompt,
@@ -165,6 +177,10 @@ def rejection_reason(model: NGramModel, text: str) -> str | None:
         return "not_three_nonempty_lines"
     if len(set(line.casefold() for line in lines)) != 3:
         return "repeated_full_line"
+    words = re.findall(r"[a-z0-9_./:%']+", " ".join(lines).casefold())
+    phrases = [tuple(words[index : index + 3]) for index in range(0, max(0, len(words) - 2))]
+    if len(phrases) != len(set(phrases)):
+        return "repeated_phrase"
     if any(len(line) > limit for line, limit in zip(lines, DEFAULT_MAX_LINE_CHARS)):
         return "line_too_long"
     if _poem_hash(text) in model.train_poem_hashes:
@@ -372,8 +388,11 @@ def _generate_tokens(
         PROMPT_END_TOKEN,
         L1_TOKEN,
     ]
+    anchor = _prompt_anchor(prompt)
+    if anchor:
+        tokens.extend(anchor)
     line_index = 0
-    line_chars = [0, 0, 0]
+    line_chars = [len(anchor), 0, 0]
 
     for _ in range(sum(DEFAULT_MAX_LINE_CHARS) + 12):
         allowed = _allowed_tokens(model, line_index, line_chars[line_index])
@@ -456,6 +475,32 @@ def _observer_from_prompt(prompt: str) -> str:
     if words & {"process", "cpu", "load", "memory", "thread"}:
         return "process"
     return "unknown"
+
+
+def _prompt_anchor(prompt: str) -> list[str]:
+    """Return a short first-line topic hint that keeps evaluator prompts grounded."""
+    words = _prompt_words(prompt)
+    for keywords, anchor in PROMPT_TOPIC_ANCHORS:
+        if words & keywords:
+            return list(anchor)
+    return []
+
+
+def _prompt_rejection_reason(prompt: str, text: str) -> str | None:
+    words = _prompt_words(prompt)
+    if not words:
+        return None
+    poem_words = _prompt_words(text)
+    if words & poem_words:
+        return None
+    for keywords, _anchor in PROMPT_TOPIC_ANCHORS:
+        if words & keywords and poem_words & keywords:
+            return None
+    return "prompt_topic_overlap"
+
+
+def _prompt_words(text: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9_./:%']+", text.casefold()))
 
 
 def _poem_hash(text: str) -> str:
