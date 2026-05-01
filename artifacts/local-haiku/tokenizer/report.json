@@ -1,0 +1,22 @@
+{
+  "baseline": "character/control-token",
+  "control_token_size": 12,
+  "control_tokens": [
+    "</PROMPT>",
+    "<END>",
+    "<HAIKU>",
+    "<L1>",
+    "<L2>",
+    "<L3>",
+    "<PROMPT>",
+    "<LANG=en>",
+    "<OBSERVER=disk>",
+    "<OBSERVER=network>",
+    "<OBSERVER=process>",
+    "<SOURCE=repo-local>"
+  ],
+  "deferred": "k-mer/de Bruijn graph representation is deferred to a later experiment",
+  "example_count": 1919,
+  "skipped_invalid_count": 90,
+  "vocabulary_size": 87
+}
