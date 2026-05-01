@@ -1,0 +1,9 @@
+Write a haiku about a climate report crossing the wire.
+Write a haiku about a local build cache serving files.
+Write a haiku about a local outage mentioned on a status page.
+Write a haiku about a process quiet.
+Write a haiku about a temp directory after a long build.
+Write a haiku about cicadas outside while tests run.
+Write a haiku about localhost logs scrolling in a terminal.
+Write a haiku about packets crossing the loopback interface.
+Write a haiku about ping replies from a nearby router.

@@ -1,0 +1,9 @@
+Write a haiku about a local machine with quiet.
+Write a haiku about a sleeping daemon waking every five minutes.
+Write a haiku about DNS timing out during a morning check.
+Write a haiku about dropped packets during a storm.
+Write a haiku about election results updating slowly.
+Write a haiku about old log files filling /var/log.
+Write a haiku about snow falling while the terminal waits.
+Write a haiku about spring wind through an open office door.
+Write a haiku about the autohaiku directory growing on disk.

@@ -1,0 +1,32 @@
+Write a haiku about a city council vote reported this morning.
+Write a haiku about a cron job starting exactly on time.
+Write a haiku about a filesystem check finishing before dawn.
+Write a haiku about a library release noted by developers.
+Write a haiku about a machine waking from suspend.
+Write a haiku about a parent process reaping children.
+Write a haiku about a quiet network interface named eth0.
+Write a haiku about a Rust test process using all cores.
+Write a haiku about a security patch announced in the news.
+Write a haiku about a shell pipeline waiting on grep.
+Write a haiku about a spacecraft launch delayed by weather.
+Write a haiku about a warm keyboard after a long edit.
+Write a haiku about a zombie process in the process table.
+Write a haiku about an SSD reporting quiet free blocks.
+Write a haiku about battery percentage on a laptop at dusk.
+Write a haiku about CPU load from many short processes.
+Write a haiku about fan noise from a local workstation.
+Write a haiku about inode pressure on the home partition.
+Write a haiku about localhost latency measured in milliseconds.
+Write a haiku about maple leaves beside a server room window.
+Write a haiku about markets opening after overnight headlines.
+Write a haiku about memory pressure from a Python worker.
+Write a haiku about moonlight over a sleeping laptop.
+Write a haiku about morning frost and quiet fans.
+Write a haiku about rain on the roof during a compile.
+Write a haiku about river fog and a humming machine.
+Write a haiku about root disk space at 63 percent full.
+Write a haiku about rotating backups on a local drive.
+Write a haiku about sensors reporting CPU temperature.
+Write a haiku about TCP connections in TIME_WAIT.
+Write a haiku about the hostname blinking on a prompt.
+Write a haiku about Wi-Fi signal fading near the window.
