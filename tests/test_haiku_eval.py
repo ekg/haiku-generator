@@ -7,7 +7,14 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from haiku_eval import evaluate_haiku, load_train_poems, read_poem_file
+from haiku_eval import (
+    evaluate_haiku,
+    evaluate_samples,
+    load_samples,
+    load_train_poems,
+    read_poem_file,
+    render_report,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "haiku_eval"
@@ -98,3 +105,44 @@ def test_train_set_overlap_exact_duplicate_fails_and_two_lines_are_flagged():
     assert partial.passed
     assert "train_two_line_overlap" in partial.warnings
     assert unrelated.passed
+
+
+def test_sample_jsonl_harness_reports_run_level_metrics():
+    samples = load_samples(FIXTURES / "samples.jsonl")
+    result = evaluate_samples(samples, train_poems=train_poems())
+
+    assert result.metrics["sample_count"] == 5
+    assert result.metrics["failure_counts"]["prompt_topic_overlap"] == 1
+    assert result.metrics["failure_counts"]["train_exact_poem"] == 1
+    assert result.metrics["failure_counts"]["novelty_exact_duplicate"] == 1
+    assert result.metrics["warning_counts"]["train_two_line_overlap"] == 1
+    assert result.metrics["topic_overlap"]["prompted_count"] == 5
+
+    duplicate = [
+        sample for sample in result.samples if sample.sample.id == "duplicate-generated"
+    ][0]
+    assert "nearest_prior_similarity" in duplicate.check.details
+
+
+def test_dataset_jsonl_train_artifact_is_consumed_for_overlap():
+    dataset_train = load_train_poems(FIXTURES / "dataset.jsonl")
+    samples = load_samples(FIXTURES / "dataset_overlap_sample.jsonl")
+    result = evaluate_samples(samples, train_poems=dataset_train)
+
+    assert len(dataset_train) == 1
+    assert result.metrics["failure_counts"] == {"train_exact_poem": 1}
+
+
+def test_plain_text_samples_can_use_prompt_file_and_render_report():
+    prompts = [
+        line.strip()
+        for line in (FIXTURES / "prompts" / "smoke.txt").read_text().splitlines()
+    ]
+    samples = load_samples(FIXTURES / "plain_samples.txt", prompts=prompts)
+    result = evaluate_samples(samples)
+    report = render_report(result)
+
+    assert len(samples) == 2
+    assert samples[0].prompt == "localhost latency"
+    assert result.metrics["failure_counts"]["prompt_topic_overlap"] == 1
+    assert "# Local Haiku Evaluation Report" in report

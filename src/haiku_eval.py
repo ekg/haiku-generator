@@ -6,10 +6,12 @@ They avoid network calls and external language models by design.
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass, field
+import json
 from pathlib import Path
 import re
-from typing import Iterable
+from typing import Iterable, Sequence
 
 
 LINE_CHAR_BANDS = ((8, 32), (12, 44), (8, 32))
@@ -53,6 +55,8 @@ TOPIC_BUCKETS = {
     "machine": {"local", "host", "daemon", "shell", "kernel", "log", "logs"},
     "nature": {"rain", "moon", "moss", "pine", "river", "snow", "wind", "dawn"},
 }
+POEM_TEXT_FIELDS = ("poem", "text", "output", "generated", "haiku", "completion")
+POEM_LINE_FIELDS = ("lines", "poem_lines", "haiku_lines")
 
 
 @dataclass(frozen=True)
@@ -69,14 +73,62 @@ class HaikuCheckResult:
         return not self.failures
 
 
+@dataclass(frozen=True)
+class HaikuSample:
+    """One generated haiku candidate with optional prompt metadata."""
+
+    id: str
+    text: str
+    prompt: str = ""
+    source: str = ""
+    metadata: dict[str, object] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class HaikuSampleResult:
+    """Evaluation result for one generated sample."""
+
+    sample: HaikuSample
+    check: HaikuCheckResult
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "id": self.sample.id,
+            "source": self.sample.source,
+            "prompt": self.sample.prompt,
+            "passed": self.check.passed,
+            "failures": list(self.check.failures),
+            "warnings": list(self.check.warnings),
+            "lines": list(self.check.lines),
+            "details": self.check.details,
+        }
+
+
+@dataclass(frozen=True)
+class HaikuRunResult:
+    """Aggregate evaluation result for a generated sample file."""
+
+    samples: tuple[HaikuSampleResult, ...]
+    metrics: dict[str, object]
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "metrics": self.metrics,
+            "samples": [sample.to_dict() for sample in self.samples],
+        }
+
+
 def read_poem_file(path: str | Path) -> str:
     """Read a generated poem or .haiku file."""
     return Path(path).read_text(encoding="utf-8")
 
 
 def load_train_poems(path: str | Path) -> list[str]:
-    """Load train poems from one file or a directory of text/.haiku files."""
+    """Load train poems from one file, a directory, or a normalized dataset JSONL."""
     train_path = Path(path)
+    if train_path.suffix == ".jsonl":
+        return load_train_poems_from_dataset(train_path)
+
     if train_path.is_file():
         return [train_path.read_text(encoding="utf-8")]
 
@@ -85,6 +137,128 @@ def load_train_poems(path: str | Path) -> list[str]:
         if child.suffix in {".haiku", ".txt"} and child.is_file():
             poems.append(child.read_text(encoding="utf-8"))
     return poems
+
+
+def load_train_poems_from_dataset(path: str | Path, *, split: str = "train") -> list[str]:
+    """Load poem text from a normalized dataset JSONL artifact.
+
+    Records are expected to be dicts with a train/dev/test `split` and either a
+    text field or line-list field. Records without a split are treated as train
+    records so tiny fixtures can stay minimal.
+    """
+    poems: list[str] = []
+    for record in _read_jsonl_records(Path(path)):
+        record_split = str(record.get("split", split))
+        if record_split != split:
+            continue
+
+        poem = _record_poem_text(record)
+        if poem:
+            poems.append(poem)
+    return poems
+
+
+def load_samples(path: str | Path, *, prompts: Sequence[str] = ()) -> list[HaikuSample]:
+    """Load generated samples from JSONL or plain text.
+
+    JSONL records may use `poem`, `text`, `output`, `haiku`, or `lines` fields.
+    Plain text files are split into samples by blank-line separated blocks.
+    """
+    sample_path = Path(path)
+    if sample_path.suffix == ".jsonl":
+        return _load_jsonl_samples(sample_path, prompts=prompts)
+
+    blocks = _text_sample_blocks(sample_path.read_text(encoding="utf-8"))
+    samples: list[HaikuSample] = []
+    for index, block in enumerate(blocks, start=1):
+        prompt = prompts[index - 1] if index <= len(prompts) else ""
+        samples.append(
+            HaikuSample(
+                id=f"{sample_path.stem}-{index}",
+                text=block,
+                prompt=prompt,
+                source=str(sample_path),
+            )
+        )
+    return samples
+
+
+def evaluate_samples(
+    samples: Sequence[HaikuSample],
+    *,
+    train_poems: Iterable[str] = (),
+) -> HaikuRunResult:
+    """Evaluate generated samples and return per-sample results plus metrics."""
+    train_poem_list = list(train_poems)
+    prior_outputs: list[str] = []
+    results: list[HaikuSampleResult] = []
+
+    for sample in samples:
+        check = evaluate_haiku(
+            sample.text,
+            prompt=sample.prompt,
+            train_poems=train_poem_list,
+            prior_outputs=prior_outputs,
+        )
+        results.append(HaikuSampleResult(sample=sample, check=check))
+        prior_outputs.append(sample.text)
+
+    return HaikuRunResult(samples=tuple(results), metrics=_run_metrics(results))
+
+
+def write_metrics_json(result: HaikuRunResult, path: str | Path) -> None:
+    """Write machine-readable evaluation metrics and sample details."""
+    Path(path).write_text(
+        json.dumps(result.to_dict(), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def render_report(result: HaikuRunResult) -> str:
+    """Render a compact Markdown report for humans."""
+    metrics = result.metrics
+    lines = [
+        "# Local Haiku Evaluation Report",
+        "",
+        "## Summary",
+        "",
+        f"- Samples: {metrics['sample_count']}",
+        f"- Passed: {metrics['passed_count']}",
+        f"- Failed: {metrics['failed_count']}",
+        f"- Pass rate: {metrics['pass_rate']:.3f}",
+        "",
+        "## Checks",
+        "",
+    ]
+
+    for key in ("failure_counts", "warning_counts", "topic_overlap"):
+        lines.append(f"### {key.replace('_', ' ').title()}")
+        values = metrics[key]
+        if values:
+            for name, value in values.items():
+                lines.append(f"- {name}: {value}")
+        else:
+            lines.append("- none")
+        lines.append("")
+
+    failed = [sample for sample in result.samples if not sample.check.passed]
+    if failed:
+        lines.extend(["## Failed Samples", ""])
+        for sample in failed[:20]:
+            lines.append(f"### {sample.sample.id}")
+            if sample.sample.prompt:
+                lines.append(f"- Prompt: {sample.sample.prompt}")
+            lines.append(f"- Failures: {', '.join(sample.check.failures)}")
+            if sample.check.warnings:
+                lines.append(f"- Warnings: {', '.join(sample.check.warnings)}")
+            lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def write_report(result: HaikuRunResult, path: str | Path) -> None:
+    """Write a readable Markdown evaluation report."""
+    Path(path).write_text(render_report(result), encoding="utf-8")
 
 
 def extract_poem_lines(text: str) -> tuple[str, ...]:
@@ -138,6 +312,15 @@ def evaluate_haiku(
 def prompt_keywords(prompt: str) -> set[str]:
     """Extract local prompt keywords after stopword removal."""
     return {token for token in _tokens(prompt) if token not in STOPWORDS}
+
+
+def load_prompt_file(path: str | Path) -> list[str]:
+    """Load non-empty prompts from a prompt split file."""
+    return [
+        line.strip()
+        for line in Path(path).read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
 
 
 def _check_length(
@@ -335,3 +518,104 @@ def _char_ngrams(text: str, n: int) -> set[str]:
     if len(collapsed) <= n:
         return {collapsed} if collapsed else set()
     return {collapsed[index : index + n] for index in range(len(collapsed) - n + 1)}
+
+
+def _load_jsonl_samples(path: Path, *, prompts: Sequence[str]) -> list[HaikuSample]:
+    samples: list[HaikuSample] = []
+    for index, record in enumerate(_read_jsonl_records(path), start=1):
+        text = _record_poem_text(record)
+        if not text:
+            continue
+
+        prompt = str(record.get("prompt") or "")
+        if not prompt and index <= len(prompts):
+            prompt = prompts[index - 1]
+
+        sample_id = str(
+            record.get("id") or record.get("sample_id") or f"{path.stem}-{index}"
+        )
+        samples.append(
+            HaikuSample(
+                id=sample_id,
+                text=text,
+                prompt=prompt,
+                source=str(path),
+                metadata=record,
+            )
+        )
+    return samples
+
+
+def _read_jsonl_records(path: Path) -> list[dict[str, object]]:
+    records: list[dict[str, object]] = []
+    for line_number, line in enumerate(
+        path.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        record = json.loads(stripped)
+        if not isinstance(record, dict):
+            raise ValueError(f"{path}:{line_number}: expected JSON object")
+        records.append(record)
+    return records
+
+
+def _record_poem_text(record: dict[str, object]) -> str:
+    for field_name in POEM_LINE_FIELDS:
+        value = record.get(field_name)
+        if isinstance(value, list):
+            return "\n".join(str(line) for line in value)
+
+    for field_name in POEM_TEXT_FIELDS:
+        value = record.get(field_name)
+        if isinstance(value, str):
+            return value
+
+    normalized = record.get("normalized_text")
+    if isinstance(normalized, str):
+        return normalized
+
+    return ""
+
+
+def _text_sample_blocks(text: str) -> list[str]:
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n").strip()
+    if not normalized:
+        return []
+    return [block.strip() for block in re.split(r"\n\s*\n", normalized) if block.strip()]
+
+
+def _run_metrics(results: Sequence[HaikuSampleResult]) -> dict[str, object]:
+    sample_count = len(results)
+    passed_count = sum(1 for result in results if result.check.passed)
+    failure_counts = Counter(
+        failure for result in results for failure in result.check.failures
+    )
+    warning_counts = Counter(
+        warning for result in results for warning in result.check.warnings
+    )
+    topic_pass = sum(
+        1
+        for result in results
+        if result.sample.prompt and "prompt_topic_overlap" not in result.check.failures
+    )
+    topic_fail = sum(
+        1
+        for result in results
+        if result.sample.prompt and "prompt_topic_overlap" in result.check.failures
+    )
+
+    return {
+        "sample_count": sample_count,
+        "passed_count": passed_count,
+        "failed_count": sample_count - passed_count,
+        "pass_rate": passed_count / sample_count if sample_count else 0.0,
+        "failure_counts": dict(sorted(failure_counts.items())),
+        "warning_counts": dict(sorted(warning_counts.items())),
+        "topic_overlap": {
+            "prompted_count": topic_pass + topic_fail,
+            "pass_count": topic_pass,
+            "fail_count": topic_fail,
+        },
+    }

@@ -1,0 +1,3 @@
+{"id": "train-1", "split": "train", "poem_lines": ["Cold disk hums softly", "Cpu sparks under moonlit load", "Logs breathe into dawn"], "normalized_text": "cold disk hums softly\ncpu sparks under moonlit load\nlogs breathe into dawn"}
+{"id": "dev-1", "split": "dev", "poem_lines": ["Moon over pine boughs", "Quiet rain threads the old field", "Moss waits for sunrise"]}
+{"id": "test-1", "split": "test", "text": "Loopback packets wait\nLocalhost answers with calm\nPing fades into dawn"}

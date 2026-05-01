@@ -1,0 +1,5 @@
+{"id": "topic-hit", "prompt": "localhost latency", "lines": ["Loopback packets wait", "Localhost answers with calm", "Ping fades into dawn"]}
+{"id": "topic-miss", "prompt": "localhost latency", "text": "Moon over pine boughs\nQuiet rain threads the old field\nMoss waits for sunrise"}
+{"id": "train-overlap", "prompt": "cpu load", "haiku": "Cold disk hums softly\nCpu sparks under moonlit load\nLogs breathe into dawn"}
+{"id": "two-line-overlap", "prompt": "cpu load", "poem": "Cold disk hums softly\nCpu sparks under moonlit load\nFans turn toward morning"}
+{"id": "duplicate-generated", "prompt": "localhost latency", "output": "Loopback packets wait\nLocalhost answers with calm\nPing fades into dawn"}
