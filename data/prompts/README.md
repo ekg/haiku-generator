@@ -19,7 +19,13 @@ Each prompt is assigned deterministically from the prompt text:
 Within each split, prompts are sorted by their normalized text for stable diffs.
 The current prompt pool is intentionally small and stratified so disk, process,
 network, local machine, nature, and news-like prompts appear in every split
-where possible.
+where possible. As of the `corpus-expand-local` refresh it contains 45 train,
+19 dev, and 17 held-out prompts.
+
+The refresh added climate/report, status/outage, temp/scratch folder,
+cicada/summer-insect, river/weather, and local alert/news phrasing to train and
+dev without copying exact held-out prompt sentences. Held-out keeps broad
+release-gate variants for those areas, including non-machine local imagery.
 
 ## Split Use
 

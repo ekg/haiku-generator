@@ -1,0 +1,13 @@
+---
+observer: local-fixture
+timestamp: 20260501-temp-directory
+reviewed_for: corpus-expand-local
+---
+Temp directory
+holds sawdust after build
+cold rain at window
+
+---
+observations: |
+  Repo-local reviewed fixture added for temp-directory and build coverage.
+  No external source text was used.

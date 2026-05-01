@@ -1,0 +1,13 @@
+---
+observer: local-fixture
+timestamp: 20260501-election-status
+reviewed_for: corpus-expand-local
+---
+Election numbers
+crawl across the dim status
+snow fills the alley
+
+---
+observations: |
+  Repo-local reviewed fixture added for broad news/status prompt coverage.
+  No external source text was used.

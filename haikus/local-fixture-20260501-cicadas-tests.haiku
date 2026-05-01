@@ -1,0 +1,13 @@
+---
+observer: local-fixture
+timestamp: 20260501-cicadas-tests
+reviewed_for: corpus-expand-local
+---
+Cicadas in grass
+test windows wait quietly
+heat shakes the sidewalk
+
+---
+observations: |
+  Repo-local reviewed fixture added for non-machine cicada/test imagery.
+  No external source text was used.

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T15:23:33.833752+00:00",
+  "created_at": "2026-05-01T15:55:49.337943+00:00",
   "dedupe": {
     "duplicate_group_count": 11,
     "duplicate_source_count": 16,
@@ -10,12 +10,12 @@
   "quality_flag_counts": {
     "non_three_line": 117
   },
-  "record_count": 2503,
-  "source_file_count": 2519,
+  "record_count": 2513,
+  "source_file_count": 2529,
   "split_counts": {
     "dev": 241,
     "test": 253,
-    "train": 2009
+    "train": 2019
   },
   "split_rule": {
     "dev": "80..89",

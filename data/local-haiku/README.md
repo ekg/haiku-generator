@@ -64,11 +64,26 @@ truncates later observation blocks before writing poem lines. External downloads
 are intentionally not performed by this command; any future external corpus must
 be added through an explicit source path with reviewed provenance and licensing.
 
+The `local-fixture-20260501-*.haiku` files are hand-reviewed repo-local fixtures
+added to broaden the first local baseline's training coverage for non-machine
+local imagery and broad held-out prompt terms. They cover climate/report/wire,
+status/outage/page, temp-directory/build, cicadas/tests, river fog, maple
+leaves, storm rain, local cache/files, localhost logs, and news-style status
+language. Each fixture includes `reviewed_for: corpus-expand-local` frontmatter
+and an observation note stating that no external source text was used.
+
 Records are deduplicated before splitting by `sha256(normalized poem text)`.
 Splits are deterministic from the same normalized text hash: buckets `0..79`
 are `train`, `80..89` are `dev`, and `90..99` are `test`. Downstream training
 tasks must filter to `split == "train"` and must not use `dev` or `test`
 records for model counts, prompt tuning, retrieval examples, or thresholds.
+
+The prompt files in `data/prompts/` follow a separate deterministic hash rule
+documented in `data/prompts/README.md`. The current prompt pool includes
+train/dev phrasing for the same broad areas without copying held-out prompt
+sentences, while held-out retains release-gate coverage for climate reports,
+status/outage pages, temp/scratch build folders, cicadas, river/weather
+reports, local logs, loopback packets, and nearby-router pings.
 
 Build baseline tokenizer examples with:
 

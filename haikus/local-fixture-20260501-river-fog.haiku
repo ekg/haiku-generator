@@ -1,0 +1,13 @@
+---
+observer: local-fixture
+timestamp: 20260501-river-fog
+reviewed_for: corpus-expand-local
+---
+River fog gathers
+over the sleeping laptop
+keys cool before dawn
+
+---
+observations: |
+  Repo-local reviewed fixture added for non-machine local weather imagery.
+  No external source text was used.
