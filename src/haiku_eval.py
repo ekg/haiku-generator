@@ -57,6 +57,61 @@ TOPIC_BUCKETS = {
 }
 POEM_TEXT_FIELDS = ("poem", "text", "output", "generated", "haiku", "completion")
 POEM_LINE_FIELDS = ("lines", "poem_lines", "haiku_lines")
+SUBWORD_ARTIFACT_MARKERS = ("@@", "##", "\u0120", "\u2581", "<unk>", "</s>", "<|")
+LEXICAL_COMPOUND_ALLOWLIST = {
+    "filesystem",
+    "localhost",
+    "moonlight",
+    "moonlit",
+    "sunrise",
+}
+LEXICAL_SEGMENT_WORDS = {
+    "answers",
+    "boughs",
+    "breathes",
+    "calm",
+    "cold",
+    "cool",
+    "cpu",
+    "dawn",
+    "disk",
+    "drive",
+    "eth0",
+    "fades",
+    "fans",
+    "field",
+    "hums",
+    "keeps",
+    "latency",
+    "light",
+    "load",
+    "local",
+    "localhost",
+    "logs",
+    "loopback",
+    "moon",
+    "morning",
+    "moss",
+    "old",
+    "over",
+    "packets",
+    "path",
+    "pine",
+    "ping",
+    "rain",
+    "root",
+    "silver",
+    "soft",
+    "softly",
+    "sparks",
+    "sunrise",
+    "threads",
+    "turn",
+    "under",
+    "var",
+    "wait",
+    "wind",
+} | set().union(*TOPIC_BUCKETS.values())
 
 
 @dataclass(frozen=True)
@@ -231,10 +286,10 @@ def render_report(result: HaikuRunResult) -> str:
         "",
     ]
 
-    for key in ("failure_counts", "warning_counts", "topic_overlap"):
+    for key in ("failure_counts", "warning_counts", "topic_overlap", "lexical_coherence"):
         lines.append(f"### {key.replace('_', ' ').title()}")
         values = metrics[key]
-        if values:
+        if isinstance(values, dict) and values:
             for name, value in values.items():
                 lines.append(f"- {name}: {value}")
         else:
@@ -296,6 +351,7 @@ def evaluate_haiku(
     else:
         _check_length(lines, failures, warnings, details)
         _check_language(lines, failures, warnings, details)
+        _check_lexical_coherence(lines, failures, warnings, details)
         _check_repetition(lines, failures, warnings, details)
         _check_prompt_topic(prompt, lines, failures, warnings, details)
         _check_novelty(poem_text, prior_outputs, failures, warnings, details)
@@ -351,7 +407,7 @@ def _check_language(
     details: dict[str, object],
 ) -> None:
     text = " ".join(lines)
-    if any(marker in text for marker in ("�", "\ufffd")):
+    if "\ufffd" in text:
         failures.append("language_unreadable")
         return
 
@@ -370,6 +426,51 @@ def _check_language(
     details["language_token_ratio"] = ratio
     if ratio < 0.75:
         warnings.append("language_sanity")
+
+
+def _check_lexical_coherence(
+    lines: tuple[str, ...],
+    failures: list[str],
+    warnings: list[str],
+    details: dict[str, object],
+) -> None:
+    text = " ".join(lines)
+    raw_tokens = re.findall(r"\S+", text)
+    normalized_tokens = _tokens(text)
+
+    artifacts = sorted(
+        {
+            marker
+            for marker in SUBWORD_ARTIFACT_MARKERS
+            if marker.lower() in text.lower()
+        }
+    )
+    fused_fragments = sorted(
+        {
+            token
+            for token in normalized_tokens
+            if _looks_like_fused_fragment(token)
+        }
+    )
+    short_fragments = [
+        token
+        for token in normalized_tokens
+        if token.isalpha() and len(token) <= 2 and token not in STOPWORDS
+    ]
+    short_fragment_ratio = len(short_fragments) / max(1, len(normalized_tokens))
+
+    details["lexical_coherence"] = {
+        "passed": not artifacts and not fused_fragments and short_fragment_ratio < 0.35,
+        "artifact_markers": artifacts,
+        "fused_fragments": fused_fragments,
+        "short_fragment_ratio": short_fragment_ratio,
+        "token_count": len(normalized_tokens),
+    }
+
+    if artifacts or fused_fragments or (
+        len(raw_tokens) >= 6 and len(short_fragments) >= 3 and short_fragment_ratio >= 0.35
+    ):
+        failures.append("lexical_coherence")
 
 
 def _check_repetition(
@@ -505,6 +606,30 @@ def _normalize_line(line: str) -> str:
     return " ".join(_tokens(line))
 
 
+def _looks_like_fused_fragment(token: str) -> bool:
+    if token in LEXICAL_COMPOUND_ALLOWLIST or not token.isalpha() or len(token) < 10:
+        return False
+
+    segments = _segment_known_words(token)
+    if not segments or len(segments) < 2:
+        return False
+    return any(len(segment) >= 4 for segment in segments)
+
+
+def _segment_known_words(token: str) -> tuple[str, ...] | None:
+    if not token:
+        return ()
+
+    for end in range(min(len(token), 12), 1, -1):
+        head = token[:end]
+        if head not in LEXICAL_SEGMENT_WORDS:
+            continue
+        tail = _segment_known_words(token[end:])
+        if tail is not None:
+            return (head, *tail)
+    return None
+
+
 def _char_ngram_jaccard(left: str, right: str, n: int = 5) -> float:
     left_grams = _char_ngrams(left, n)
     right_grams = _char_ngrams(right, n)
@@ -605,6 +730,25 @@ def _run_metrics(results: Sequence[HaikuSampleResult]) -> dict[str, object]:
         for result in results
         if result.sample.prompt and "prompt_topic_overlap" in result.check.failures
     )
+    lexical_fail = sum(
+        1 for result in results if "lexical_coherence" in result.check.failures
+    )
+    lexical_artifact_count = sum(
+        len(
+            result.check.details.get("lexical_coherence", {}).get(
+                "artifact_markers", []
+            )
+        )
+        for result in results
+    )
+    lexical_fused_count = sum(
+        len(
+            result.check.details.get("lexical_coherence", {}).get(
+                "fused_fragments", []
+            )
+        )
+        for result in results
+    )
 
     return {
         "sample_count": sample_count,
@@ -617,5 +761,11 @@ def _run_metrics(results: Sequence[HaikuSampleResult]) -> dict[str, object]:
             "prompted_count": topic_pass + topic_fail,
             "pass_count": topic_pass,
             "fail_count": topic_fail,
+        },
+        "lexical_coherence": {
+            "pass_count": sample_count - lexical_fail,
+            "fail_count": lexical_fail,
+            "artifact_marker_count": lexical_artifact_count,
+            "fused_fragment_count": lexical_fused_count,
         },
     }

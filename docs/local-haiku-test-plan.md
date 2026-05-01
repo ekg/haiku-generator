@@ -72,6 +72,7 @@ summaries or publishable output.
 | Three-line form | Strip frontmatter and blank outer whitespace; require exactly three non-empty poem lines. | Hard fail. | Does not prove the poem is a haiku. |
 | Approximate syllables or length proxy | Prefer a small local syllable estimator with a fallback length band: line word counts near 5/7/5 or character ranges such as 8-32, 12-44, 8-32. | Hard fail for extreme length; warning for near misses. | English syllable estimation is unreliable, especially for numbers, hostnames, acronyms, and technical terms. |
 | Language | Require mostly English alphabetic tokens plus expected technical tokens, numbers, paths, interface names, and punctuation. Flag mojibake and non-English-heavy output. | Warning at first; hard fail for unreadable output. | Short poems have too little text for robust language ID. |
+| Lexical coherence | Reject obvious fused fragments such as concatenated prompt/topic words, subword markers like `@@`/`##`, and high ratios of tiny leftover fragments. | Hard fail. | Conservative by design; it catches tokenization artifacts, not subtle awkward diction. |
 | Repetition | Reject repeated full lines, repeated 3+ word phrases, excessive repeated characters, or a high duplicate-token ratio. | Hard fail for exact repeated lines; warning for softer repetition. | Some intentional repetition can be poetic. |
 | Prompt-topic overlap | Extract prompt keywords after stopword removal; require at least one direct keyword, synonym bucket, observer tag, or concrete datum overlap when the prompt has usable content. | Warning for prototype; gate for deployable command. | N-grams may show weak semantics even when they learn local style. Keyword overlap can reward clumsy copying. |
 | Novelty | Compare normalized output against prior generated samples from the same run and historical accepted outputs. Reject exact duplicates; report near-duplicate similarity. | Hard fail for exact duplicates. | High novelty does not mean high quality. |
@@ -143,6 +144,8 @@ Recommended fixtures:
   topic overlap.
 - A poem containing numbers, interface names, or paths to ensure language and
   length checks do not reject normal observer content.
+- A malformed fragment fixture with fused topic words or subword markers that
+  must fail lexical coherence and appear in JSON and Markdown reports.
 
 Suggested fixture layout:
 
@@ -156,6 +159,7 @@ tests/fixtures/haiku_eval/
     valid.haiku
     one_line.txt
     repeated_lines.txt
+    malformed_fragments.txt
     train_duplicate.haiku
     topic_miss.haiku
     topic_hit.haiku
@@ -272,4 +276,3 @@ The documentation plan assumes these implementation tasks exist:
 - Add deterministic prompt and corpus split files.
 - Add a local evaluation report command that uses the checkers.
 - Wire the deployable local generator command to run checks before success.
-

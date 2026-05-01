@@ -14,6 +14,8 @@ from haiku_eval import (
     load_train_poems,
     read_poem_file,
     render_report,
+    write_metrics_json,
+    write_report,
 )
 
 
@@ -43,6 +45,7 @@ def test_fixture_files_exist():
         GENERATED / "topic_miss.haiku",
         GENERATED / "topic_hit.haiku",
         GENERATED / "technical_language.haiku",
+        GENERATED / "malformed_fragments.txt",
     ]
 
     missing = [path for path in expected if not path.exists()]
@@ -68,6 +71,16 @@ def test_length_proxy_and_language_sanity():
     assert "length_proxy" in too_long.failures
     assert technical.passed
     assert "language_unreadable" in mojibake.failures
+
+
+def test_lexical_coherence_flags_malformed_fragments():
+    malformed = evaluate_haiku(fixture_text("malformed_fragments.txt"))
+
+    assert "lexical_coherence" in malformed.failures
+    assert malformed.details["lexical_coherence"]["artifact_markers"] == ["@@"]
+    assert malformed.details["lexical_coherence"]["fused_fragments"] == [
+        "localhostlatency"
+    ]
 
 
 def test_repetition_passes_and_fails():
@@ -146,3 +159,21 @@ def test_plain_text_samples_can_use_prompt_file_and_render_report():
     assert samples[0].prompt == "localhost latency"
     assert result.metrics["failure_counts"]["prompt_topic_overlap"] == 1
     assert "# Local Haiku Evaluation Report" in report
+
+
+def test_reports_include_lexical_coherence_diagnostics(tmp_path):
+    samples = load_samples(GENERATED / "malformed_fragments.txt")
+    result = evaluate_samples(samples)
+    json_path = tmp_path / "metrics.json"
+    report_path = tmp_path / "report.md"
+
+    write_metrics_json(result, json_path)
+    write_report(result, report_path)
+
+    json_report = json_path.read_text(encoding="utf-8")
+    markdown_report = report_path.read_text(encoding="utf-8")
+
+    assert '"lexical_coherence"' in json_report
+    assert '"fused_fragments"' in json_report
+    assert "### Lexical Coherence" in markdown_report
+    assert "- fail_count: 1" in markdown_report
